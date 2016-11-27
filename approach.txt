@@ -1,0 +1,102 @@
+##### What kind of data?
+All the basic Pokemon data, and just Pokemon
+- No need for Pokemon hold items
+- Includes color (for the future)
+
+##### What kind of visualization am I trying to do?
+Competitive data, competitive data over the last 7 generation
+
+## Data gathering, requirements
+Initially PokeAPI, but this is too much to gather data from. Use their csvs instead. Build my own database and convert back into csv. Pretty much creating a flatter csv in the end. 
+
+## Tables to do sorted by priority!
+	Pokemon Main 
+Column Name | Type | PK/FK
+--- | --- | --- | ---
+pk_pokemon_id | INT | PK
+name | TEXT |
+hp | INT
+attack | INT
+defense | INT
+special_defense | INT 
+special_attack 	| INT 
+speed | INT 
+bst | INT
+height	| INT
+weight		| INT  
+base_experience | INT
+fk_generation	| INT | FK
+
+
+	Ability
+Column Name | Type | PK/FK
+--- | --- | --- 
+pk_ability_id | INT | PK
+ability_name | TEXT
+
+	Types
+Column Name | Type | PK/FK
+--- | --- | --- 
+pk_ability_id | INT | PK
+type_name | TEXT
+fk_generation_id | INT | FK
+
+	Generation
+Column Name | Type | PK/FK
+--- | --- | --- 
+pk_generation_id | INT | PK
+name | TEXT
+
+	Competitive
+Column Name | Type | PK/FK
+--- | --- | --- 
+pk_tier_id | INT | PK
+tier_name | TEXT
+fk_generation_id | INT | FK
+
+	Pokemon Competitive
+Column Name | Type | PK/FK
+--- | --- | ---
+pk_tier_pokemon_id | INT | PRIMARY KEY
+fk_pokemon_id | INT 
+fk_tier_id | INT
+fk_generation_id | INT
+
+
+
+Low Priority: 
+Gender
+Egg Group
+Evolution Method
+Species
+Pokemon Title
+Shape & Color
+Growth Rate
+
+
+
+###### Step 1: Gather all the data required from PokeAPI
+Simply farm their csvs from github.
+
+###### Step 2: Setup tables with (NOT NULL) option disabled. No foreign keys, just primary keys since there are gonna be gaps.
+
+###### Step 3: Put cvs data into the table.
+
+
+###### Step 4: Design tables for competitive data
+
+
+###### Step ?: Setup database -> csv since the data is pretty much static
+
+
+
+###### Visualization
+###### Step 1: Figure out what kind of visualization, how it would look etc.
+- Type per generation
+	Filters:
+		- Primary type only
+		- Secondary type only
+
+- Stats
+
+- Competitive, who was stronger? OP. Smogon tiers ONLY
