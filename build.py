@@ -11,7 +11,7 @@ cursor = conn.cursor()
 
 #https://jeffknupp.com/blog/2013/04/07/improve-your-python-yield-and-generators-explained/
 DIR_LOCATION = os.path.dirname(os.path.realpath("__file__"))
-DATA_LOCATION = os.path.join(os.path.join(DIR_LOCATION, 'csv'), '')
+DATA_LOCATION = os.path.join(os.path.join(DIR_LOCATION, 'data'), '')
 
 def build_aux(filename, database_name):
 	data = load_data(filename)
