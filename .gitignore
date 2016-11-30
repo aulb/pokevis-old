@@ -2,3 +2,10 @@
 old/*
 old_csv/*
 *.sqlite
+node_modules
+approach.txt
+public
+test
+vendor
+tmp
+log
