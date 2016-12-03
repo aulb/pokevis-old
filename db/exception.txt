@@ -1,0 +1,4 @@
+exception:
+479 - rotom BW only
+521 - new form male female
+change rotom forms to gen 5
