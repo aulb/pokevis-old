@@ -83,5 +83,14 @@ CREATE TABLE pokemon_competitive (
 )
 ''')
 
+c.execute('''
+CREATE TABLE fully_evolved (
+	pk_fully_evolved_id INT PRIMARY KEY,
+	fk_pokemon_id INT,
+	generation_start INT,
+	generation_until INT
+)
+''')
+
 conn.commit()
 conn.close()

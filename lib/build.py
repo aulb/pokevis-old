@@ -10,8 +10,9 @@ conn = sqlite3.connect('master.sqlite')
 cursor = conn.cursor()
 
 #https://jeffknupp.com/blog/2013/04/07/improve-your-python-yield-and-generators-explained/
-DIR_LOCATION = os.path.dirname(os.path.realpath("__file__"))
+DIR_LOCATION = os.path.dirname(os.path.realpath("__file__")) + "/../lib/" # Temporary
 DATA_LOCATION = os.path.join(os.path.join(DIR_LOCATION, 'data'), '')
+
 
 def build_aux(filename, database_name):
 	data = load_data(filename)
@@ -29,6 +30,7 @@ def build_aux(filename, database_name):
 def build():
 	csvs = glob.glob(os.path.join(DATA_LOCATION, '*'))
 	for csv in csvs:
+		print "Building " + csv
 		# Determine database_name # oman
 		database_name = csv.split("/")[-1].split(".")[0]
 		build_aux(csv, database_name)

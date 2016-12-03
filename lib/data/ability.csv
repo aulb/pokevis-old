@@ -193,41 +193,41 @@ pk_ability_id,ability_name,flavour_text,fk_generation_id
 192,stamina,Boosts the Defense stat when hit by an attack.,7
 193,wimp-out,The Pokémon cowardly switches out when its HP becomes half or less.,7
 194,emergency-exit,The Pokémon sensing danger switches out when its HP becomes half or less.,7
-195,water-compaction,Boosts the Pokémon''s Defense stat sharply when hit by a Water-type move.,7
-196,merciless,The Pokémon''s attacks become critical hits if the target is poisoned.,7
-197,shields-down,When its HP becomes half or less the Pokémon''s shell breaks and it becomes aggressive.,7
-198,stakeout,Doubles the damage dealt to the target''s replacement if the target switches out.,7
+195,water-compaction,Boosts the Pokémon''''s Defense stat sharply when hit by a Water-type move.,7
+196,merciless,The Pokémon''''s attacks become critical hits if the target is poisoned.,7
+197,shields-down,When its HP becomes half or less the Pokémon''''s shell breaks and it becomes aggressive.,7
+198,stakeout,Doubles the damage dealt to the target''''s replacement if the target switches out.,7
 199,water-bubble,Lowers the power of Fire-type moves done to the Pokémon and prevents the Pokémon from getting a burn.	,7
 200,steelworker,Powers up Steel-type moves.,7
-201,berserk,Boosts the Pokémon''s Sp. Atk stat when it takes a hit that causes its HP to become half or less.,7
-202,slush-rush,Boosts the Pokémon''s Speed stat in a hailstorm.,7
+201,berserk,Boosts the Pokémon''''s Sp. Atk stat when it takes a hit that causes its HP to become half or less.,7
+202,slush-rush,Boosts the Pokémon''''s Speed stat in a hailstorm.,7
 203,long-reach,The Pokémon uses its moves without making contact with the target.,7
 204,liquid-voice,All sound-based moves become Water-type moves.,7
 205,triage,Gives priority to a healing move.,7
-206,galvanize,Normal-type moves become Electric-type moves. The power of those moves is boosted a little.	,7
-207,surge-surfer,Doubles the Pokémon''s Speed stat on Electric Terrain.,7
+206,galvanize,Normal-type moves become Electric-type moves. The power of those moves is boosted a little.,7
+207,surge-surfer,Doubles the Pokémon''''s Speed stat on Electric Terrain.,7
 208,schooling,When it has a lot of HP the Pokémon forms a powerful school. It stops schooling when its HP is low.,7
 209,disguise,Once per battle the shroud that covers the Pokémon can protect it from an attack.,7
-210,battle-bond,Defeating an opposing Pokémon strengthens the Pokémon''s bond with its Trainer and it becomes Ash-Greninja. Water Shuriken gets more powerful.,7
+210,battle-bond,Defeating an opposing Pokémon strengthens the Pokémon''''s bond with its Trainer and it becomes Ash-Greninja. Water Shuriken gets more powerful.,7
 211,power-construct,Other Cells gather to aid when its HP becomes half or less. Then the Pokémon changes its form to Complete Forme.,7
-212,corrosion,The Pokémon can poison the target even if it''s a Steel or Poison type.,7
-213,comatose,It''s always drowsing and will never wake up. It can attack without waking up.,7
+212,corrosion,The Pokémon can poison the target even if it''''s a Steel or Poison type.,7
+213,comatose,It''''s always drowsing and will never wake up. It can attack without waking up.,7
 214,queenly-majesty,Its majesty pressures the opposing Pokémon making it unable to attack using priority moves.,7
 215,innards-out,Damages the attacker landing the finishing hit by the amount equal to its last HP.,7
 216,dancer,"When another Pokémon uses a dance move, it can use a dance move following it regardless of its Speed.",7
-217,battery,Powers up ally Pokémon''s special moves.,7
+217,battery,Powers up ally Pokémon''''s special moves.,7
 218,fluffy,Halves the damage taken from moves that make direct contact but doubles that of Fire-type moves.,7
 219,dazzling,Surprises the opposing Pokémon making it unable to attack using priority moves.,7
 220,soul-heart,Boosts its Sp. Atk stat every time a Pokémon faints.,7
-221,tangling-hair,Contact with the Pokémon lowers the attacker''s Speed stat.,7
+221,tangling-hair,Contact with the Pokémon lowers the attacker''''s Speed stat.,7
 222,receiver,The Pokémon copies the Ability of a defeated ally.,7
 223,power-of-alchemy,The Pokémon copies the Ability of a defeated ally.,7
 224,beast-boost,The Pokémon boosts its most proficient stat each time it knocks out a Pokémon.,7
-225,rks-system,Changes the Pokémon''s type to match the memory disc it holds.,7
+225,rks-system,Changes the Pokémon''''s type to match the memory disc it holds.,7
 226,electric-surge,Turns the ground into Electric Terrain when the Pokémon enters a battle.,7
 227,psychic-surge,Turns the ground into Psychic Terrain when the Pokémon enters a battle.,7
 228,misty-surge,Turns the ground into Misty Terrain when the Pokémon enters a battle.,7
 229,grassy-surge,Turns the ground into Grassy Terrain when the Pokémon enters a battle.,7
-230,full-metal-body,Prevents other Pokémon''s moves or Abilities from lowering the Pokémon''s stats.,7
+230,full-metal-body,Prevents other Pokémon''''s moves or Abilities from lowering the Pokémon''''s stats.,7
 231,shadow-shield,Reduces the amount of damage the Pokémon takes while its HP is full.,7
 232,prism-armor,Reduces the power of supereffective attacks taken.,7

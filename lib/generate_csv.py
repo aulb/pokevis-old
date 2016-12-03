@@ -11,6 +11,7 @@ import sqlite3
 conn = sqlite3.connect('master.sqlite')
 cursor = conn.cursor()
 
+
 def isstr(s):
 	return isinstance(s, basestring)
 
@@ -25,6 +26,7 @@ def write_to_csv(filename):
 	    for row in rows:
 	    	row = [x.encode('utf-8') if isstr(x) else x for x in row]
 	    	csv_writer.writerow(row)
+
 
 def generate_pokemon():
 	pokemon_query = """
@@ -73,6 +75,7 @@ def generate_pokemon_type():
 	cursor.execute(pokemon_type_query)
 	write_to_csv("pokemon_type.csv")
 
+
 def generate_generation():
 	generation_query = """
 		SELECT *
@@ -82,6 +85,15 @@ def generate_generation():
 	write_to_csv("generation.csv")
 
 
+def generate_fully_evolved():
+	fe_query = """
+	SELECT *
+	FROM fully_evolved
+	"""
+	cursor.execute(fe_query)
+	write_to_csv("fully_evolved.csv")
+
+
 if __name__ == '__main__':
 	generate_type()
 	generate_ability()
@@ -89,3 +101,4 @@ if __name__ == '__main__':
 	generate_pokemon_ability()
 	generate_pokemon_type()
 	generate_generation()
+	generate_fully_evolved()

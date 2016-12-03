@@ -1,4 +1,52 @@
+"""
+Queries to generate single and dual types.
+http://i.imgur.com/c1z5YTa.png
+By: reddit@user:ROMaster2
+"""
+
 import sqlite3
+conn = sqlite3.connect('master.sqlite')
+cursor = conn.cursor()
+
+def query_single(id):
+	query = """
+	SELECT pri.fk_pokemon_id 
+	FROM   (SELECT fk_pokemon_id, 
+	               fk_type_id
+	        FROM   pokemon_type pt 
+	        WHERE  pt.fk_type_id = ? 
+	               AND pt.slot = 1) pri 
+	       LEFT JOIN (SELECT fk_pokemon_id, 
+	                         fk_type_id 
+	                  FROM   pokemon_type pt 
+	                  WHERE  pt.slot = 2) sec 
+	              ON pri.fk_pokemon_id = sec.fk_pokemon_id 
+	WHERE  sec.fk_type_id IS NULL 
+	"""
+	cursor.execute(query, str(id))
+	pokemon_ids = cursor.fetchall()
+	return pokemon_ids
+
+
+def query_double(id1, id2, gen_id):
+	"""
+	SELECT ct.fk_pokemon_id
+	FROM (
+	        (SELECT fk_pokemon_id
+	         FROM pokemon_type pt
+	         WHERE pt.fk_type_id=?)
+	      UNION
+	        (SELECT fk_pokemon_id
+	         FROM pokemon_type pt
+	         WHERE pt.fk_type_id=?)) ct
+	JOIN
+	  (SELECT fk_pokemon_id
+	   FROM fully_evolved fe
+	   WHERE generation_until=?) fe ON fe.fk_pokemon_id = ct.fk_pokemon_id
+	"""
+	cursor.execute(query, str(id1))
+	pokemon_ids = cursor.fetchall()
+	return pokemon_ids
 
 
 if __name__ == '__main__':
@@ -8,45 +56,14 @@ if __name__ == '__main__':
 
 	arrange_by_color = [1,1]
 
-# """
-# SELECT primary.fk_pokemon_id
-# ((SELECT fk_pokemon_id, fk_type
-# FROM pokemon_type pt
-# WHERE pt.type=?) primary LEFT JOIN
-# (SELECT fk_pokemon_id, fk_type
-# FROM pokemon_type pt
-# WHERE slot=2)) secondary
-# WHERE 
-# secondary.fk_type IS NULL
-# """
+	# Fetch upper triangular only
+	# counter = 1
+	# for i in range(1,18):
+	# 	for j in range(counter,18):
+	# 		# If they're the same then query for singular type
+	# 		if i == j:
+	# 			query_single()
+	# 		# If they're different then query for different typings
+	# 		else:
+	# 			query_double()
 
-# """
-# SELECT correct_type.fk_pokemon_id ((SELECT fk_pokemon_id
-# FROM pokemon_type pt 
-# WHERE pt.type=?) UNION
-# (SELECT fk_pokemon_id
-# FROM pokemon_type pt
-# WHERE pt.type=?)) correct_type JOIN
-# (SELECT fk_pokemon_id
-# FROM fully_evolved fe 
-# WHERE generation_until=?) fe ON fe.fk_pokemon_id = pt.fk_pokemon_id
-# """
-
-# 		1,normal,1
-# 2,fighting,1
-# 3,flying,1
-# 4,poison,1
-# 5,ground,1
-# 6,rock,1
-# 7,bug,1
-# 8,ghost,1
-# 9,steel,2
-# 10,fire,1
-# 11,water,1
-# 12,grass,1
-# 13,electric,1
-# 14,psychic,1
-# 15,ice,1
-# 16,dragon,1
-# 17,dark,2
-# 18,fairy,6
