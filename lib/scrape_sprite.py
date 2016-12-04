@@ -38,12 +38,12 @@ if __name__ == '__main__':
 	# 	print "Saving " + spritename
 	# 	time.sleep(1)
 
-	# traverse = ['pau', 'zen', '10']
+	# traverse = ['pau', 'zen', '10', 'ps', 'phd']
 	# traverse.extend(list(string.ascii_lowercase))
 	# traverse.extend(["-" + x for x in traverse])
-	# forms_only = [25, 383, 382, 386, 412, 413, 421, 422, 423, 479, 487, 492, 
+	# forms_only = [25, 351, 383, 382, 386, 412, 413, 421, 422, 423, 479, 487, 492, 521,
 	# 			  555, 641, 642, 645, 646, 647, 648, 658, 669, 
-	# 			  670, 671, 681, 718, 720, 741, 746, 774, 745, 666, 676]
+	# 			  670, 671, 678, 681, 718, 720, 741, 746, 774, 745, 666, 676]
 
 	# traverse_mega = ['m', 'mx', 'my']
 	# mega_only = [3, 6, 9, 15, 18, 65, 80, 94,
