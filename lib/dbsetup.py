@@ -70,7 +70,7 @@ CREATE TABLE generation (
 c.execute('''
 CREATE TABLE competitive (
 	pk_tier_id 			INT 	PRIMARY KEY,
-	tier_name 			TEXT
+	tier_name 			TEXT,
 	fk_generation_id 	INT)
 ''')
 

@@ -94,11 +94,20 @@ def generate_fully_evolved():
 	write_to_csv("fully_evolved.csv")
 
 
+def generate_pokemon_competitive():
+	pc_query = """
+	SELECT *
+	FROM pokemon_competitive
+	"""
+	cursor.execute(pc_query)
+	write_to_csv("pokemon_competitive.csv")
+
 if __name__ == '__main__':
-	generate_type()
-	generate_ability()
-	generate_pokemon()
-	generate_pokemon_ability()
-	generate_pokemon_type()
-	generate_generation()
-	generate_fully_evolved()
+	# generate_type()
+	# generate_ability()
+	# generate_pokemon()
+	# generate_pokemon_ability()
+	# generate_pokemon_type()
+	# generate_generation()
+	# generate_fully_evolved()
+	generate_pokemon_competitive()
