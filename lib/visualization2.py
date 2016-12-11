@@ -7,7 +7,7 @@ from random import randint
 conn = sqlite3.connect('master.sqlite')
 cursor = conn.cursor()
 
-def basic_type_count(type_id, gen):
+def main_type_count(type_id, gen):
 	query = """
 	SELECT COUNT(*)
 	FROM   pokemon_type pt 
@@ -19,6 +19,16 @@ def basic_type_count(type_id, gen):
 	cursor.execute(query, (str(type_id), str(gen)))
 	return cursor.fetchone()
 
+
+def secondary_type_count():
+	query = """
+	SELECT COUNT(*)
+	FROM pokemon_type pt
+	"""
+
+	return cursor.fetchone()
+
+
 def type_exclude():
 	# Exclude all forms
 	# Exclude all megas
@@ -26,11 +36,14 @@ def type_exclude():
 
 
 if __name__ == '__main__':
-	pass
-	# types = ['bug', 'dark', 'dragon', 'electric', 'fairy', 'fight', 'fire',
-	# 	 'flying', 'ghost', 'grass', 'ground', 'ice', 'normal', 'poison',
-	# 	 'psychic', 'rock', 'steel', 'water']
+	TYPE_LIST = ['Grass','Fire','Water','Bug','Normal','Poison',
+	            'Electric','Ground','Fairy','Fighting','Psychic',
+	            'Rock','Ghost','Ice','Dragon','Dark','Steel','Flying']
 
+	COLOR_LIST = ['#8ED752', '#F95643', '#53AFFE', '#C3D221', '#BBBDAF', '#AD5CA2', 
+	              '#F8E64E', '#F0CA42', '#F9AEFE', '#A35449', '#FB61B4', '#CDBD72', 
+	              '#7673DA', '#66EBFF', '#8B76FF', '#8E6856', '#C3C1D7', '#75A4F9']
+	COLOR_MAP = dict(zip(TYPE_LIST, COLOR_LIST))
 	# arrange_by_color = [1,1]
 
 	# # Fetch upper triangular only

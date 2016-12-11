@@ -56,7 +56,9 @@ CREATE TABLE pokemon_type (
 	pk_pokemon_type_id 	INT 	PRIMARY KEY,
 	fk_pokemon_id 		INT,
 	fk_type_id 			INT,
-	slot 				INT)
+	slot 				INT,
+	generation_start INT,
+	generation_until INT)
 ''')
 
 # Generation 
