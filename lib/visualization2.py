@@ -11,10 +11,10 @@ def main_type_count(type_id, gen):
 	query = """
 	SELECT COUNT(*)
 	FROM   pokemon_type pt 
-	       JOIN pokemon p 
-	         ON pt.fk_pokemon_id = p.pk_pokemon_id 
-	WHERE p.fk_generation_id <= ?
-	AND pt.fk_type_id = ?
+	WHERE pt.fk_type_id=1 
+	AND slot=1
+	AND generation_start <= 7
+	AND generation_until >= 7
 	"""
 	cursor.execute(query, (str(type_id), str(gen)))
 	return cursor.fetchone()

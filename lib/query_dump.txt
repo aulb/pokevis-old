@@ -1,0 +1,36 @@
+	SELECT ct.fk_pokemon_id, p.name
+	FROM   (SELECT fk_pokemon_id 
+	         FROM   pokemon_type pt 
+	         WHERE  pt.fk_type_id = ?
+	         AND pt.generation_start <= ?
+	         AND pt.generation_until >= ?
+	        INTERSECT 
+	        SELECT fk_pokemon_id 
+	         FROM   pokemon_type pt 
+	         WHERE  pt.fk_type_id = ?
+	         AND pt.generation_start <= ?
+	         AND pt.generation_until >= ?) ct 
+	       JOIN fully_evolved fe 
+	         ON fe.fk_pokemon_id = ct.fk_pokemon_id 
+	       JOIN pokemon p 
+	         ON p.pk_pokemon_id = ct.fk_pokemon_id
+	WHERE  fe.generation_start <= ? 
+	       AND fe.generation_until >= ? 
+
+
+	SELECT ct.fk_pokemon_id
+	FROM   (SELECT fk_pokemon_id 
+	         FROM   pokemon_type pt 
+	         WHERE  pt.fk_type_id = ?
+	         AND pt.generation_start <= ?
+	         AND pt.generation_until >= ?
+	        INTERSECT 
+	        SELECT fk_pokemon_id 
+	         FROM   pokemon_type pt 
+	         WHERE  pt.fk_type_id = ?
+	         AND pt.generation_start <= ?
+	         AND pt.generation_until >= ?) ct 
+	       JOIN fully_evolved fe 
+	         ON fe.fk_pokemon_id = ct.fk_pokemon_id 
+	WHERE  fe.generation_start <= ? 
+	       AND fe.generation_until >= ? 
