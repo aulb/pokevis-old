@@ -3,3 +3,34 @@ I decided to bring surskit back
 
 
 igglybuff shows now why??
+
+<!-- <!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Pokevis</title>
+
+</head>
+<body>
+    <div class="ui masthead">
+        <div class="ui container">
+            <h1 class="ui header">
+                hello
+            </h1>
+        </div>
+    </div>
+    <nav class="ui menu">
+        <h3 class="header item">Pokevis</h3>
+        <a class="item">Home</a>
+        <a class="item">Link</a>
+        <span class="right floated text item">Signed</span>
+    </nav>
+    
+    <div class="ui text container">
+        <h2 class="ui dividing header">
+            Introduction
+        </h2>
+    </div>
+</body>
+</html>
+<!-- http://stackoverflow.com/questions/36789889/syntaxerror-use-of-const-in-strict-mode -->
