@@ -8,7 +8,8 @@ table {
     -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
     transform: rotate(90deg);
 }
- 
+
+// Visualization 1 
 td {
     text-align: center; 
     vertical-align: middle;
@@ -20,12 +21,13 @@ td img {
 	margin:0 auto; 
 }
 
+// Visualization 2
 #pokeChart {
-  height: 360px;
 	display: block;
-  margin: 0 auto;
-  position: relative;
-  width: 500px;
+}
+
+#pokeChart {
+  display: block;
 }
 
 .legend {

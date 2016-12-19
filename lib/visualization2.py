@@ -9,25 +9,42 @@ from random import randint
 conn = sqlite3.connect('master.sqlite')
 cursor = conn.cursor()
 
-def main_type_count(type_id, gen):
+def main_type_count(id, gen):
 	query = """
 	SELECT COUNT(*)
-	FROM   pokemon_type pt 
-	WHERE pt.fk_type_id=1 
+	FROM  pokemon_type pt 
+	WHERE pt.fk_type_id = ?
 	AND slot=1
-	AND generation_start <= 7
-	AND generation_until >= 7
+	AND generation_start <= ?
+	AND generation_until >= ?
 	"""
-	cursor.execute(query, (str(type_id), str(gen)))
+	cursor.execute(query, (str(id), str(gen), str(gen)))
 	return cursor.fetchone()
 
 
-def secondary_type_count():
+def secondary_type_count(id1, id2, gen):
 	query = """
-	SELECT COUNT(*)
-	FROM pokemon_type pt
+	SELECT COUNT(*) 
+	FROM (SELECT fk_pokemon_id
+		  FROM   pokemon_type pt 
+		  WHERE pt.fk_type_id = ?
+		  AND slot = 1
+		  AND generation_start <= ?
+		  AND generation_until >= ?
+		  INTERSECT 
+		  SELECT fk_pokemon_id 
+		  FROM   pokemon_type pt 
+		  WHERE  pt.fk_type_id = ?
+		  AND slot = 2
+		  AND pt.generation_start <= ?
+		  AND pt.generation_until >= ?) t
 	"""
-
+	cursor.execute(query, (str(id1), 
+						   str(gen), 
+						   str(gen),
+						   str(id2),
+						   str(gen), 
+						   str(gen)))
 	return cursor.fetchone()
 
 
@@ -37,7 +54,14 @@ def type_exclude():
 	pass
 
 
+def generate_all_json():
+	pass
+
+
 if __name__ == '__main__':
+
+
+
 	TYPE_LIST = ['Grass','Fire','Water','Bug','Normal','Poison',
 	            'Electric','Ground','Fairy','Fighting','Psychic',
 	            'Rock','Ghost','Ice','Dragon','Dark','Steel','Flying']

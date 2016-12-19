@@ -27,7 +27,7 @@ TYPE_LIST = ['Normal', 'Fighting', 'Flying',
 			 'Electric', 'Psychic', 'Ice', 
 			 'Dragon', 'Dark', 'Fairy']  
 
-def query_single(id, gen_start=1, gen_until=7):
+def query_single(id, gen=7):
 	query = """
 	SELECT pri.fk_pokemon_id 
 	FROM   (SELECT fk_pokemon_id, 
@@ -48,17 +48,17 @@ def query_single(id, gen_start=1, gen_until=7):
 	"""
 	cursor.execute(query,
 		[str(id), 
-		 str(gen_start), 
-		 str(gen_until),
-		 str(gen_start),
-		 str(gen_until)])
+		 str(gen), 
+		 str(gen),
+		 str(gen),
+		 str(gen)])
 	pokemon_ids = cursor.fetchall()
 	if len(pokemon_ids) == 0:
 		return []
 	return pokemon_ids[randint(0, len(pokemon_ids) - 1)]
 
 
-def query_double(id1, id2, gen_start=1, gen_until=7):
+def query_double(id1, id2, gen=7):
 	query = """
 	SELECT ct.fk_pokemon_id
 	FROM   (SELECT fk_pokemon_id 
@@ -74,8 +74,8 @@ def query_double(id1, id2, gen_start=1, gen_until=7):
 	         AND pt.generation_until >= ?) ct 
 	"""
 
-	cursor.execute(query, [str(id1), str(gen_start), str(gen_until), 
-						   str(id2), str(gen_start), str(gen_until)])
+	cursor.execute(query, [str(id1), str(gen), str(gen), 
+						   str(id2), str(gen), str(gen)])
 	pokemon_ids = cursor.fetchall()
 	if len(pokemon_ids) == 0:
 		return []
