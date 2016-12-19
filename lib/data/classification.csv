@@ -1,1 +1,9 @@
-is_legendary,is_mega,is_baby,is_redundant,is_mythical,is_form,is_default
+pk_classification_id,name
+1,baby
+2,pseudo
+3,legendary
+4,mythical
+5,form
+6,redundant
+7,starter
+8,ultra-beast
