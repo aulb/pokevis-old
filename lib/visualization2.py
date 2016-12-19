@@ -1,6 +1,8 @@
 """
 Queries to generate types per generation ala serebii
 Todo:
+http://zeroviscosity.com/d3-js-step-by-step/step-1-a-basic-pie-chart
+http://plnkr.co/edit/2p0zmp?p=preview
 """
 import sqlite3
 from random import randint
