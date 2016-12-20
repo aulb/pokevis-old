@@ -1,4 +1,4 @@
-pk_ability_id,ability_name,flavour_text,fk_generation_id
+pk,name,flavour_text,gen
 1,stench,The stench may cause the target to flinch.,3
 2,drizzle,The Pokémon makes it rain when it enters a battle.,3
 3,speed-boost,Its Speed stat is gradually boosted.,3

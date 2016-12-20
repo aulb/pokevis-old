@@ -1,4 +1,4 @@
-pk_pokemon_type_id,fk_pokemon_id,fk_type_id,slot,generation_start,generation_until
+pk,pokemon,pokemon_type,slot,generation_start,generation_until
 1,1,12,1,1,7
 2,1,4,2,1,7
 3,2,12,1,1,7

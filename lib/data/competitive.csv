@@ -1,4 +1,4 @@
-pk_tier_id,tier_name,fk_generation_id
+pk,name,gen
 1,LC,3
 2,BL,3
 3,UU,3

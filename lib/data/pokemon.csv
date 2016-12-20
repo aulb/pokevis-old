@@ -1,4 +1,4 @@
-pk_pokemon_id,species_id,name,hp,attack,defense,special_attack,special_defense,speed,bst,height,weight,base_experience,fk_generation_id,is_default
+pk,species_id,name,hp,attack,defense,sp_attack,sp_defense,speed,bst,height,weight,base_exp,gen,is_default
 1,1,bulbasaur,45,49,49,65,65,45,318,7,69,64,1,1
 2,2,ivysaur,60,62,63,80,80,60,405,10,130,142,1,1
 3,3,venusaur,80,82,83,100,100,80,525,20,1000,236,1,1

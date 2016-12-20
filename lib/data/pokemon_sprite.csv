@@ -1,4 +1,4 @@
-pk_pokemon_sprites_id,fk_pokemon_id,spritename
+pk,pokemon,spritename
 1,1,001.png
 2,2,002.png
 3,3,003.png

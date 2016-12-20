@@ -1,4 +1,4 @@
-pk_pokemon_competitive_id,fk_pokemon_id,fk_tier_id
+pk,pokemon,tier
 1,63,1
 2,65,2
 3,64,2
