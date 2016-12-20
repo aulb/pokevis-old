@@ -9,6 +9,7 @@ from random import randint
 conn = sqlite3.connect('master.sqlite')
 cursor = conn.cursor()
 
+
 def main_type_count(id, gen):
 	query = """
 	SELECT COUNT(*)
@@ -59,9 +60,6 @@ def generate_all_json():
 
 
 if __name__ == '__main__':
-
-
-
 	TYPE_LIST = ['Grass','Fire','Water','Bug','Normal','Poison',
 	            'Electric','Ground','Fairy','Fighting','Psychic',
 	            'Rock','Ghost','Ice','Dragon','Dark','Steel','Flying']

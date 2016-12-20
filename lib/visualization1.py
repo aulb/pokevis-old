@@ -1,33 +1,59 @@
-"""
-Queries to generate single and dual types.
-http://i.imgur.com/c1z5YTa.png
-By: reddit@user:ROMaster2
 
-http://imgur.com/PnOqyam
-By: reddit@user:glitterizer
-
-- Strict mode 		: main and secondary type is non interchangeable
-- Lax mode 			: main and secondary type is interchangeable
-- No Arceus & Silv	: no arceus/silvally forms 
-- No Forms 			: absolutely no other forms (rotom forms, alola, megas, all)
-- No Megas 			: forms allowed but no megas 
-- No Legendaries 	: *future*
-- Generation 		: only include pokemon up to x generation 
-"""
 import sqlite3
 import json
 from random import randint
 conn = sqlite3.connect('master.sqlite')
 cursor = conn.cursor()
 
-TYPE_LIST = ['Normal', 'Fighting', 'Flying',
-			 'Poison', 'Ground', 'Rock', 
-			 'Bug', 'Ghost', 'Steel', 
-			 'Fire', 'Water', 'Grass', 
-			 'Electric', 'Psychic', 'Ice', 
-			 'Dragon', 'Dark', 'Fairy']  
+TYPES = ['Normal', 
+		 'Fighting', 
+		 'Flying',
+		 'Poison', 
+		 'Ground', 
+		 'Rock', 
+		 'Bug', 
+		 'Ghost', 
+		 'Steel', 
+		 'Fire', 
+		 'Water', 
+		 'Grass', 
+		 'Electric',
+		 'Psychic', 
+		 'Ice', 
+		 'Dragon', 
+		 'Dark', 
+		 'Fairy']  
 
-def query_single(id, gen=7):
+
+COLORS = ['#BBBDAF', 
+		  '#A35449', 
+		  '#75A4F9', 
+		  '#AD5CA2', 
+		  '#F0CA42', 
+		  '#CDBD72', 
+		  '#C3D221', 
+		  '#7673DA', 
+		  '#C3C1D7', 
+		  '#F95643', 
+		  '#53AFFE', 
+		  '#8ED752', 
+		  '#F8E64E', 
+		  '#FB61B4', 
+		  '#66EBFF', 
+		  '#8B76FF', 
+		  '#8E6856', 
+		  '#F9AEFE'];
+
+
+OPTIONS = {
+	"DEFAULT": [12, 14, 11], 
+	"NO-MEGA": [12, 14, 11, 16, 17],
+	"NO-FORM": [12, 14, 11, 16, 17, 9, 13],
+	"NO-LEGENDARY": [12, 14, 3, 4]
+}
+
+
+def query_single(id, gen=7, option="DEFAULT"):
 	query = """
 	SELECT pri.fk_pokemon_id 
 	FROM   (SELECT fk_pokemon_id, 
@@ -44,21 +70,28 @@ def query_single(id, gen=7):
 	                  AND pt.generation_start <= ?
 	                  AND pt.generation_until >= ?) sec 
 	              ON pri.fk_pokemon_id = sec.fk_pokemon_id 
+		   LEFT JOIN 
+		   (SELECT fk_pokemon_id, fk_classification_id
+		   FROM pokemon_classification pc 
+		   WHERE pc.fk_classification_id IN ?) x ON pri.fk_pokemon_id = x.fk_pokemon_id
 	WHERE  sec.fk_type_id IS NULL 
+	AND x.fk_classification_id IS NULL
 	"""
+	exclude = OPTIONS[option]
 	cursor.execute(query,
 		[str(id), 
 		 str(gen), 
 		 str(gen),
 		 str(gen),
-		 str(gen)])
+		 str(gen),
+		 tuple(exclude)])
 	pokemon_ids = cursor.fetchall()
 	if len(pokemon_ids) == 0:
 		return []
 	return pokemon_ids[randint(0, len(pokemon_ids) - 1)]
 
 
-def query_double(id1, id2, gen=7):
+def query_double(id1, id2, gen=7, option="DEFAULT"):
 	query = """
 	SELECT ct.fk_pokemon_id
 	FROM   (SELECT fk_pokemon_id 
@@ -72,10 +105,16 @@ def query_double(id1, id2, gen=7):
 	         WHERE  pt.fk_type_id = ?
 	         AND pt.generation_start <= ?
 	         AND pt.generation_until >= ?) ct 
+		   LEFT JOIN 
+		   (SELECT fk_pokemon_id, fk_classification_id
+		   FROM pokemon_classification pc 
+		   WHERE pc.fk_classification_id IN ?) x ON ct.fk_pokemon_id = x.fk_pokemon_id
+	WHERE x.fk_classification_id IS NULL
 	"""
-
+	exclude = OPTIONS[option]
 	cursor.execute(query, [str(id1), str(gen), str(gen), 
-						   str(id2), str(gen), str(gen)])
+						   str(id2), str(gen), str(gen),
+						   tuple(exclude)])
 	pokemon_ids = cursor.fetchall()
 	if len(pokemon_ids) == 0:
 		return []
@@ -112,16 +151,16 @@ def generate_json():
 	for gen in range(1,8):
 		generation = {}
 		for i in range(1,19):
-			primary_type = TYPE_LIST[i - 1].lower()
+			primary_type = TYPES[i - 1].lower()
 			primary = {}
 			for j in range(counter,19):
-				secondary_type = TYPE_LIST[j - 1].lower()
+				secondary_type = TYPES[j - 1].lower()
 				# If they're the same then query for singular type
 				if i == j:
-					pokemon_id = query_single(i, gen, gen)
+					pokemon_id = query_single(i, gen)
 				# If they're different then query for different typings
 				else:
-					pokemon_id = query_double(i, j, gen, gen)
+					pokemon_id = query_double(i, j, gen)
 
 				if pokemon_id == []:
 					primary[secondary_type] = ""
@@ -137,25 +176,7 @@ def generate_json():
 
 
 if __name__ == '__main__':
-	COLOR_LIST = ['#BBBDAF', 
-				  '#A35449', 
-				  '#75A4F9', 
-				  '#AD5CA2', 
-				  '#F0CA42', 
-				  '#CDBD72', 
-				  '#C3D221', 
-				  '#7673DA', 
-				  '#C3C1D7', 
-				  '#F95643', 
-				  '#53AFFE', 
-				  '#8ED752', 
-				  '#F8E64E', 
-				  '#FB61B4', 
-				  '#66EBFF', 
-				  '#8B76FF', 
-				  '#8E6856', 
-				  '#F9AEFE'];
-	COLOR_MAP = dict(zip(TYPE_LIST, COLOR_LIST))
+	COLOR_MAP = dict(zip(TYPES, COLORS))
 
 	json_dump = json.dumps(generate_json())
 	filename = "visualization1.json"

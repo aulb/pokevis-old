@@ -85,8 +85,8 @@ CREATE TABLE pokemon_competitive (
 ''')
 
 c.execute('''
-CREATE TABLE fully_evolved (
-	pk_fully_evolved_id INT PRIMARY KEY,
+CREATE TABLE final_evolution (
+	pk_final_evolution_id INT PRIMARY KEY,
 	fk_pokemon_id INT,
 	generation_start INT,
 	generation_until INT)
@@ -98,6 +98,24 @@ CREATE TABLE pokemon_sprite (
 	fk_pokemon_id INT,
 	spritename TEXT)
 ''')
+
+
+c.execute('''
+CREATE TABLE pokemon_classification (
+	pk_pokemon_classification_id INT PRIMARY KEY,
+	fk_pokemon_id INT,
+	fk_classification_id INT
+)
+''')
+
+
+c.execute('''
+CREATE TABLE classification (
+	pk_classification_id INT PRIMARY KEY,
+	classification_name TEXT
+)
+''')
+
 
 conn.commit()
 conn.close()
