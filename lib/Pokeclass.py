@@ -1,19 +1,4 @@
 """
-Queries to generate single and dual types.
-http://i.imgur.com/c1z5YTa.png
-By: reddit@user:ROMaster2
-
-http://imgur.com/PnOqyam
-By: reddit@user:glitterizer
-
-- Strict mode 		: main and secondary type is non interchangeable
-- Lax mode 			: main and secondary type is interchangeable
-- No Arceus & Silv	: no arceus/silvally forms 
-- No Forms 			: absolutely no other forms (rotom forms, alola, megas, all)
-- No Megas 			: forms allowed but no megas 
-- No Legendaries 	: *future*
-- Generation 		: only include pokemon up to x generation 
-
 http://stackoverflow.com/questions/1581183/prepared-statements-and-the-in-expression
 https://google.github.io/styleguide/pyguide.html
 https://github.com/coleifer/peewee
@@ -21,20 +6,21 @@ Redo SQLs
 
 This database is pretty much static, read-only
 PrimaryKeyField is autoincrementing
+Reflection in Python
+http://stackoverflow.com/questions/4513192/python-dynamic-class-names
+http://stackoverflow.com/questions/1796180/how-can-i-get-a-list-of-all-classes-within-current-module-in-python
+db_column 
+https://github.com/coleifer/peewee/issues/44
+Insert/Insert_Many generates SQL, need .execute()
+
+Peewee things
+http://www.blog.pythonlibrary.org/2014/07/17/an-intro-to-peewee-another-python-orm/
 """
 from peewee import *
-from dbsetup_helper import *
-import csv
-import os
-import os.path
-import sys
-
-# Create new sqlite everytime
-database_filename = 'master_orm.sqlite'
-if os.path.isfile(database_filename): 
-	os.system('rm master_orm.sqlite')
+database_filename = 'poke.sqlite'
 database = SqliteDatabase(database_filename)
 database.set_autocommit(False)
+
 
 """
 Create all the necessary tables for Pokemon. Declare all tables here.
@@ -71,7 +57,7 @@ class Generation(PokeModel):
 class Type(PokeModel):
 	pk = IntegerField(primary_key=True)
 	name = CharField()
-	gen = ForeignKeyField(Generation, to_field='pk')
+	gen = ForeignKeyField(Generation, to_field='pk', db_column='gen')
 
 
 # Definition
@@ -79,7 +65,7 @@ class Ability(PokeModel):
 	pk = IntegerField(primary_key=True)
 	name = CharField()
 	flavour_text = CharField()
-	gen = ForeignKeyField(Generation, to_field='pk', related_name='ability_gen_introduced')
+	gen = ForeignKeyField(Generation, to_field='pk', related_name='ability_gen_introduced', db_column='gen')
 
 
 # Definition
@@ -97,7 +83,7 @@ class Pokemon(PokeModel):
 	height = IntegerField() 
 	weight = IntegerField() 
 	base_exp = IntegerField()
-	gen = ForeignKeyField(Generation, to_field='pk')
+	gen = ForeignKeyField(Generation, to_field='pk', db_column='gen')
 	is_default = BooleanField()
 
 # Definition
@@ -110,56 +96,55 @@ class Classification(PokeModel):
 class Competitive(PokeModel):
 	pk = IntegerField(primary_key=True)
 	name = CharField()
-	gen = ForeignKeyField(Generation, to_field='pk')
+	gen = ForeignKeyField(Generation, to_field='pk', db_column='gen')
 
 
 # Many to many, sorta
 class FinalEvolution(PokeModel):
 	pk = IntegerField(primary_key=True)
 	pokemon = ForeignKeyField(Pokemon)
-	gen_start = ForeignKeyField(Generation, to_field='pk', related_name='gen_start')
-	gen_until = ForeignKeyField(Generation, to_field='pk', related_name='gen_until') 
+	gen_start = ForeignKeyField(Generation, to_field='pk', related_name='evo_gen_start', db_column='gen_start')
+	gen_until = ForeignKeyField(Generation, to_field='pk', related_name='evo_gen_until', db_column='gen_until') 
 
 
 # Many to Many
 class PokemonClassification(PokeModel):
 	pk = IntegerField(primary_key=True)
 	pokemon = ForeignKeyField(Pokemon)
-	classification = ForeignKeyField(Classification)
+	classification = ForeignKeyField(Classification, db_column='classification')
 
 
 # Many to Many
 class PokemonCompetitive(PokeModel):
 	pk = IntegerField(primary_key=True)
-	pokemon = ForeignKeyField(Pokemon)
-	tier = ForeignKeyField(Competitive)
+	pokemon = ForeignKeyField(Pokemon, db_column='pokemon')
+	tier = ForeignKeyField(Competitive, db_column='tier')
 
 
 # 1 - 1
 class PokemonSprite(PokeModel):
 	pk = IntegerField(primary_key=True)
-	pokemon = ForeignKeyField(Pokemon)
+	pokemon = ForeignKeyField(Pokemon, db_column='pokemon')
 	spritename = CharField()
 
 
 # Many to Many
 class PokemonType(PokeModel):
 	pk = IntegerField(primary_key=True)
-	pokemon = ForeignKeyField(Pokemon)
-	pokemon_type = ForeignKeyField(Type)
+	pokemon = ForeignKeyField(Pokemon, db_column='pokemon')
+	pokemon_type = ForeignKeyField(Type, db_column='type')
 	slot = IntegerField()
-	gen_start = ForeignKeyField(Generation, to_field='pk', related_name='gen_start')
-	gen_until = ForeignKeyField(Generation, to_field='pk', related_name='gen_until')
+	gen_start = ForeignKeyField(Generation, to_field='pk', related_name='type_gen_start', db_column='gen_start')
+	gen_until = ForeignKeyField(Generation, to_field='pk', related_name='type_gen_until', db_column='gen_until')
 
 
 # Many to Many
 class PokemonAbility(PokeModel):
 	pk = IntegerField(primary_key=True)
-	pokemon = ForeignKeyField(Pokemon)
-	ability = ForeignKeyField(Ability)
+	pokemon = ForeignKeyField(Pokemon, db_column='pokemon')
+	ability = ForeignKeyField(Ability, db_column='ability')
 	slot = IntegerField()
 
 
-if __name__ == '__main__':
-	# Fill database with csv
-	create_tables()
+if __name__ == "__main__":
+	pass
