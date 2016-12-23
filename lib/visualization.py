@@ -15,6 +15,14 @@ By: reddit@user:glitterizer
 - Generation 		: only include pokemon up to x generation 
 
 https://github.com/coleifer/peewee/issues/692
+
+subquery peewee
+http://stackoverflow.com/questions/33901178/translating-sql-sub-query-to-peewee-orm
+http://stackoverflow.com/questions/27581826/translate-sqlite-query-with-subquery-into-peewee-statement
+
+peewee filter on null
+http://stackoverflow.com/questions/19259964/peewee-syntax-for-selecting-on-null-field
+
 """
 from Pokeclass import *
 import json
@@ -67,26 +75,11 @@ OPTIONS = {
 }
 
 
-def query_single(type_id, gen, slot):
-	pri = PokemonType.alias()
-	sec = PokemonType.alias()
-	# query = (pri
-	# 			.select(pri.pokemon)
-	# 			.where(pri.slot == slot,
-	# 				   pri.gen_start == gen,
-	# 				   pri.gen_until == gen)
-	# 			.join(sec, JOIN.LEFT_OUTER, on=(pri.pokemon == sec.pokemon))
-	# 			.alias('test'))
-
-	query = (pri
-		.select(pri.pokemon, sec.pokemon)
-		.join(sec, JOIN.LEFT_OUTER, on=(pri.pokemon == sec.pokemon))
-		.alias('test'))	
-	return query
-
 def get_pokemon_type(gen, type_id=None, slot=None, alias=None):
+	# Base query
 	query = (PokemonType
-		.select(PokemonType.pokemon)
+		.select(PokemonType.pokemon,
+				PokemonType.pokemon_type)
 		.where(PokemonType.gen_start == gen,
 			   PokemonType.gen_until == gen))
 
@@ -100,6 +93,48 @@ def get_pokemon_type(gen, type_id=None, slot=None, alias=None):
 		query = query.alias(alias)
 
 	return query
+
+
+def get_pokemon_classification(option, alias=None):
+	option = OPTIONS[option]
+	query = (PokemonClassification
+		.select(PokemonClassification.pokemon,
+			    PokemonClassification.classification)
+		.where(PokemonClassification.classification << option))
+
+	if alias is not None:
+		query = query.alias(alias)
+
+	return query
+
+
+def get_single(gen, type_id, option="DEFAULT"):
+	# Main type
+	pri = get_pokemon_type(gen, type_id, 1, 'pri')
+	# Need to left join with secondary type and check for nulls
+	sec = get_pokemon_type(gen=gen, slot=2, alias='sec')
+	# Left join again wtih classification to get rid
+	# of redundant pokemons and perhaps extra stuff
+	exclude = get_pokemon_classification(option, 'exclude')
+
+	# Build main query
+	main = (pri
+		.join(sec.c, 
+			JOIN.LEFT_OUTER, 
+			on=(sec.c.pokemon == pri.c.pokemon))
+		.switch(pri)
+		.join(exclude.c,
+			JOIN.LEFT_OUTER,
+			on=(exclude.c.pokemon == pri.c.pokemon))
+		.alias('main'))
+
+	wrap = (main
+		.select(pri.c.pokemon)
+		.where(exclude.c.classification >> None,
+			sec.c.pokemon_type >> None)
+		)
+
+	return wrap
 
 
 
