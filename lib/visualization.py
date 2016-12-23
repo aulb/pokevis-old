@@ -14,15 +14,6 @@ By: reddit@user:glitterizer
 - No Legendaries 	: *future*
 - Generation 		: only include pokemon up to x generation 
 
-https://github.com/coleifer/peewee/issues/692
-
-subquery peewee
-http://stackoverflow.com/questions/33901178/translating-sql-sub-query-to-peewee-orm
-http://stackoverflow.com/questions/27581826/translate-sqlite-query-with-subquery-into-peewee-statement
-
-peewee filter on null
-http://stackoverflow.com/questions/19259964/peewee-syntax-for-selecting-on-null-field
-
 """
 from Pokeclass import *
 import json
