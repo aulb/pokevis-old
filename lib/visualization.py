@@ -84,6 +84,23 @@ def query_single(type_id, gen, slot):
 		.alias('test'))	
 	return query
 
+def get_pokemon_type(gen, type_id=None, slot=None, alias=None):
+	query = (PokemonType
+		.select(PokemonType.pokemon)
+		.where(PokemonType.gen_start == gen,
+			   PokemonType.gen_until == gen))
+
+	if type_id is not None:
+		query = query.where(PokemonType.pokemon_type == type_id)
+
+	if slot is not None:
+		query = query.where(PokemonType.slot == slot)
+
+	if alias is not None:
+		query = query.alias(alias)
+
+	return query
+
 
 
 if __name__ == '__main__':
