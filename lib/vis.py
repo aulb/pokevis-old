@@ -16,6 +16,7 @@ By: reddit@user:glitterizer
 
 """
 from Pokeclass import *
+from random import randint
 import json
 
 # Type list grabbed from the kaggle website
@@ -64,7 +65,7 @@ OPTIONS = {
 	'DEFAULT': [12, 14, 11], 
 	'NO-MEGA': [12, 14, 11, 16, 17],
 	'NO-FORM': [12, 14, 11, 16, 17, 9, 13],
-	'NO-LEGENDARY': [12, 14, 3, 4]
+	'NO-LEGENDARY': [12, 14, 3, 4, 8]
 }
 
 
@@ -135,7 +136,6 @@ def get_spritename(pokemon):
 	query = (PokemonSprite
 		.select(PokemonSprite.spritename)
 		.where(PokemonSprite.pokemon == pokemon))
-
 	return query
 
 
@@ -216,6 +216,86 @@ def get_double_type_pokemon(gen,
 	return main
 
 
+"""
+
+"""
+def _fetchone(select_query, selection):
+	retvals = [getattr(s, selection) for s in select_query]
+	# Prevent index out of range error
+	if len(retvals) == 0:
+		return []
+	return retvals[randint(0, len(retvals) - 1)]
+
+
+"""
+Generate master json for the first visualization.
+"""
+def generate_json():
+	# {
+	# 	"LAX": [[
+	# 			{	
+	# 				'NO-FORM': [[]... repeated 18 times ...], 
+	# 				'NO-LEGENDARY': [[]...], 
+	# 				'NO-MEGA': [[]...]
+	# 		}],
+	# 		[... repeated for 7 generations ...] 	
+	# 	],
+	# 	"STRICT":[... same as lax ...]
+	# }
+
+	modes = ['LAX', 'STRICT']
+	generations = range(0, 7)
+	options = ['DEFAULT', 'NO-MEGA', 'NO-FORM', 'NO-LEGENDARY']
+	primaries = range(0, 18)
+	secondaries = range(0, 18)
+
+	# lol
+	retjson = {}
+	for mode in modes:
+		# Setup the container to get all generations
+		gen_container = []
+		for generation in generations:
+			opt_container = {}
+			for option in options:
+				pri_container = []
+				for i in primaries:
+					sec_container = []
+					for j in secondaries:
+						# If they're the same fetch single typed
+						if i == j:
+							query = get_single_type_pokemon(
+									gen = generation + 1, 
+									type_id = i + 1, 
+									option = option)
+						else:
+						# Otherwise fetch from double type
+							query = get_double_type_pokemon(
+									gen = generation + 1, 
+									type_id1 = i + 1, 
+									type_id2 = j + 1, 
+									option = option, 
+									mode = mode)
+
+						
+						pokemon = _fetchone(query, 'pk')
+						# If its empty, that means theres no
+						# pokemon with that typing
+						# We can safely skip it
+						spritename = ''
+						# 'is not' doesn't work
+						if pokemon != []:
+							sprite_query = get_spritename(pokemon)
+							spritename = _fetchone(sprite_query, 'spritename')
+						sec_container.append(spritename)
+					pri_container.append(sec_container)
+				opt_container[option] = pri_container
+			# Append to the container while we have all the options
+			gen_container.append(opt_container)
+		# Append mode to retjson 
+		retjson[mode] = gen_container
+	# Return minifed json
+	return json.dumps(retjson, separators=(',',':'))
+
 if __name__ == '__main__':
 	# a = get_single(3,14)
 	# # Default
@@ -234,3 +314,9 @@ if __name__ == '__main__':
 
 	print a.count()
 
+	c = get_spritename(1)
+
+	retjson = generate_json()
+	filename = "v1.json"
+	with open(filename, 'w') as outfile: 
+		outfile.write(retjson)

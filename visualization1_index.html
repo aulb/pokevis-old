@@ -29,7 +29,7 @@
             Options
         </h2>
 
-        <div class="ui grid">
+        <div class="ui grid" id="options">
             <div class="four wide column">
                 <select id="generationSelect">
                     <option value=1>1</option>
@@ -42,18 +42,18 @@
                 </select>
             </div>
             <div class="four wide column">
-                <select id="modeSelect">
-                    <option value="strict">Strict</option>
-                    <option value="lax" selected="selected">Lax</option>
-                </select>
+                <form id="modeOption">
+                    <input type="radio" value="LAX" name="modeOption" checked /> Lax <br>
+                    <input type="radio" value="STRICT" name="modeOption" /> Strict 
+                </form>
             </div>
             <div class="four wide column">
-                <select id="formSelect">
-                    <option value="redundant">No Redundant</option>
-                    <option value="legendary">No Legendary</option>
-                    <option value="form">No Forms</option>
-                    <option value="all" selected="selected">All</option>
-                </select>
+                <form id="excludeOption">
+                    <input type="radio" value="DEFAULT" name="excludeOption" checked  /> None <br>
+                    <input type="radio" value="NO-MEGA" name="excludeOption" /> Mega <br>
+                    <input type="radio" value="NO-FORM" name="excludeOption" /> Form <br>
+                    <input type="radio" value="NO-LEGENDARY" name="excludeOption" /> Legendary
+                </form>
             </div>
         </div>
 
@@ -67,5 +67,5 @@
 
 </body>
 <script type="text/javascript" src="lib/d3/d3.v4.min.js" charset="utf-8"></script>
-<script type="text/javascript" src="js/visualization1.js"></script>
+<script type="text/javascript" src="js/v1.js"></script>
 </html>
