@@ -121,6 +121,28 @@ def query_double(id1, id2, gen=7, option="DEFAULT"):
 	return pokemon_ids[randint(0, len(pokemon_ids) - 1)]
 
 
+"""
+SELECT ct.pokemon
+FROM   (SELECT pokemon 
+         FROM   pokemontype pt 
+         WHERE  pt.pokemon_type = 1
+         AND pt.slot = 1
+         AND pt.gen_start <= 3
+         AND pt.gen_until >= 3
+        INTERSECT 
+        SELECT pokemon 
+         FROM   pokemontype pt 
+         WHERE  pt.pokemon_type = 3
+         AND pt.slot = 2
+         AND pt.gen_start <= 3
+         AND pt.gen_until >= 3) ct 
+	   LEFT JOIN 
+	   (SELECT pokemon, classification
+	   FROM pokemonclassification pc 
+	   WHERE pc.classification IN (11, 12, 14)) x ON ct.pokemon = x.pokemon
+WHERE x.classification IS NULL
+"""
+
 def find_sprite(pokemon_id):
 	query = """
 	SELECT spritename

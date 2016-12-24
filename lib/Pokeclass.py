@@ -102,7 +102,7 @@ class Competitive(PokeModel):
 # Many to many, sorta
 class FinalEvolution(PokeModel):
 	pk = IntegerField(primary_key=True)
-	pokemon = ForeignKeyField(Pokemon)
+	pokemon = ForeignKeyField(Pokemon, db_column='classification' )
 	gen_start = ForeignKeyField(Generation, to_field='pk', related_name='evo_gen_start', db_column='gen_start')
 	gen_until = ForeignKeyField(Generation, to_field='pk', related_name='evo_gen_until', db_column='gen_until') 
 
@@ -110,7 +110,7 @@ class FinalEvolution(PokeModel):
 # Many to Many
 class PokemonClassification(PokeModel):
 	pk = IntegerField(primary_key=True)
-	pokemon = ForeignKeyField(Pokemon)
+	pokemon = ForeignKeyField(Pokemon, db_column='pokemon')
 	classification = ForeignKeyField(Classification, db_column='classification')
 
 
@@ -132,7 +132,7 @@ class PokemonSprite(PokeModel):
 class PokemonType(PokeModel):
 	pk = IntegerField(primary_key=True)
 	pokemon = ForeignKeyField(Pokemon, db_column='pokemon')
-	pokemon_type = ForeignKeyField(Type, db_column='type')
+	pokemon_type = ForeignKeyField(Type, db_column='pokemon_type')
 	slot = IntegerField()
 	gen_start = ForeignKeyField(Generation, to_field='pk', related_name='type_gen_start', db_column='gen_start')
 	gen_until = ForeignKeyField(Generation, to_field='pk', related_name='type_gen_until', db_column='gen_until')
