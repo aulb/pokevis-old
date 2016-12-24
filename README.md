@@ -11,6 +11,7 @@
 |table 1 inspiration 2|http://imgur.com/PnOqyam|
 
 * Pokemon can have forms AND be legendary * Can have multiple classifications
+Solution: redundant data rather than doing an extra join on species id
 
 ## HTML
 |Problem|Link|
@@ -32,6 +33,9 @@
 |get radio button value javascript|http://stackoverflow.com/questions/9618504/get-radio-button-value-with-javascript|
 |listener on form changes|http://stackoverflow.com/questions/6715354/adding-an-eventlistener-to-a-form-running-a-function-on-submit-on-whatever-chil|
 |listener on radio button|http://stackoverflow.com/questions/8922002/attach-event-listener-through-javascript-to-radio-button|
+|disabling radio button in javascript|http://stackoverflow.com/questions/13245672/how-to-disable-the-radio-button-using-javascript-not-using-any-js-framework|
+|str2int js|http://stackoverflow.com/questions/1133770/how-do-i-convert-a-string-into-an-integer-in-javascript|
+|dynamically checked radio button js|http://stackoverflow.com/questions/9919117/how-to-change-the-selected-radio-button-dynamically-with-jquery|
 
 ## SQL
 |Problem|Link|

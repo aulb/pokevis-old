@@ -29,30 +29,30 @@
             Options
         </h2>
 
-        <div class="ui grid" id="options">
+        <div class="ui grid">
             <div class="four wide column">
-                <select id="generationSelect">
-                    <option value=1>1</option>
-                    <option value=2>2</option>
-                    <option value=3>3</option>
-                    <option value=4>4</option>
-                    <option value=5>5</option>
-                    <option value=6>6</option>
-                    <option value=7 selected="selected">7</option>
-                </select>
-            </div>
-            <div class="four wide column">
-                <form id="modeOption">
-                    <input type="radio" value="LAX" name="modeOption" checked /> Lax <br>
-                    <input type="radio" value="STRICT" name="modeOption" /> Strict 
+                <form id="generationOption">
+                    <input type="radio" value=1 name="generationOption" /> Generation 1 <br>
+                    <input type="radio" value=2 name="generationOption" /> Generation 2 <br>
+                    <input type="radio" value=3 name="generationOption" /> Generation 3 <br>
+                    <input type="radio" value=4 name="generationOption" /> Generation 4 <br>
+                    <input type="radio" value=5 name="generationOption" /> Generation 5 <br>
+                    <input type="radio" value=6 name="generationOption" /> Generation 6 <br>
+                    <input type="radio" value=7 name="generationOption" / checked> Generation 7
                 </form>
             </div>
             <div class="four wide column">
                 <form id="excludeOption">
                     <input type="radio" value="DEFAULT" name="excludeOption" checked  /> None <br>
-                    <input type="radio" value="NO-MEGA" name="excludeOption" /> Mega <br>
                     <input type="radio" value="NO-FORM" name="excludeOption" /> Form <br>
+                    <input type="radio" value="NO-MEGA" name="excludeOption" /> Mega <br>
                     <input type="radio" value="NO-LEGENDARY" name="excludeOption" /> Legendary
+                </form>
+            </div>
+            <div class="four wide column">
+                <form id="modeOption">
+                    <input type="radio" value="LAX" name="modeOption" checked /> Lax <br>
+                    <input type="radio" value="STRICT" name="modeOption" /> Strict 
                 </form>
             </div>
         </div>
