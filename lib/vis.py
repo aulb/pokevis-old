@@ -65,7 +65,7 @@ OPTIONS = {
 	'DEFAULT': [12, 14, 11], 
 	'NO-MEGA': [12, 14, 11, 16, 17],
 	'NO-FORM': [12, 14, 11, 16, 17, 9, 13],
-	'NO-LEGENDARY': [12, 14, 3, 4, 8]
+	'NO-LEGENDARY': [12, 14, 11, 3, 4, 8]
 }
 
 
@@ -230,10 +230,10 @@ def _fetchone(select_query, selection):
 """
 Generate master json for the first visualization.
 """
-def generate_json():
+def generate_type_json():
 	# {
-	# 	"LAX": [[
-	# 			{	
+	# 	"LAX": [
+	#		[{	
 	# 				'NO-FORM': [[]... repeated 18 times ...], 
 	# 				'NO-LEGENDARY': [[]...], 
 	# 				'NO-MEGA': [[]...]
@@ -249,7 +249,9 @@ def generate_json():
 	primaries = range(0, 18)
 	secondaries = range(0, 18)
 
-	# lol
+	# lol 
+	# to save space for the future, mega option should only be
+	# available to gen 6 and 7 only, form option to gen 3 onwards
 	retjson = {}
 	for mode in modes:
 		# Setup the container to get all generations
@@ -258,9 +260,15 @@ def generate_json():
 			opt_container = {}
 			for option in options:
 				pri_container = []
+				# Check, need to save space
+				if "MEGA" in option and generation < 5:
+					continue
+				elif "FORM" in option and generation < 2:
+					continue
 				for i in primaries:
 					sec_container = []
 					for j in secondaries:
+
 						# If they're the same fetch single typed
 						if i == j:
 							query = get_single_type_pokemon(
@@ -296,7 +304,56 @@ def generate_json():
 	# Return minifed json
 	return json.dumps(retjson, separators=(',',':'))
 
+
+"""
+Generate master json for the second visualization. 
+This one is simply just counting.
+"""
+def generate_count_json():
+	# [[
+	# 	{		
+	# 			'NO-FORM': [[]... repeated 18 times ...], 
+	# 			'NO-LEGENDARY': [[]...], 
+	# 			'NO-MEGA': [[]...]
+	# 	}],
+	# 	[... repeated for 7 generations ...] 	
+	# ]
+	generations = range(0, 7)
+	options = ['DEFAULT', 'NO-MEGA', 'NO-FORM']
+	primaries = range(0, 18)
+	secondaries = range(0, 18)	
+
+	retjson = []
+	# lol again
+	for generation in generations:
+		opt_container = {}
+		for option in options:
+			pri_container = []
+			for i in primaries:
+				sec_container = []
+				for j in secondaries:
+					if i == j:
+						query = get_single_type_pokemon(
+								gen = generation + 1, 
+								type_id = i + 1, 
+								option = option)
+					else:
+					# Otherwise fetch from double type
+						query = get_double_type_pokemon(
+								gen = generation + 1, 
+								type_id1 = i + 1, 
+								type_id2 = j + 1, 
+								option = option, 
+								mode = 'STRICT')
+					sec_container.append(query.count())
+				pri_container.append(sec_container)
+			opt_container[option] = pri_container
+		retjson.append(opt_container)
+	return json.dumps(retjson, separators=(',',':'))
+
+
 if __name__ == '__main__':
+	pass
 	# a = get_single(3,14)
 	# # Default
 	# for i in a:
@@ -304,19 +361,19 @@ if __name__ == '__main__':
 
 
 	# No legendary
-	a = get_single_type_pokemon(1,14)
+	# a = get_single_type_pokemon(1,14)
 
-	b = get_double_type_pokemon(gen=7, 
-		  type_id1=9, 
-		  type_id2=3, 
-		  option='DEFAULT', 
-		  mode='STRICT')
+	# b = get_double_type_pokemon(gen=7, 
+	# 	  type_id1=9, 
+	# 	  type_id2=3, 
+	# 	  option='DEFAULT', 
+	# 	  mode='STRICT')
 
-	print a.count()
+	# print a.count()
 
-	c = get_spritename(1)
+	# c = get_spritename(1)
 
-	retjson = generate_json()
-	filename = "v1.json"
+	retjson = generate_count_json()
+	filename = "v2.json"
 	with open(filename, 'w') as outfile: 
 		outfile.write(retjson)

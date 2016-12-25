@@ -31,27 +31,60 @@
 
         <div class="ui grid">
             <div class="four wide column">
-                <select id="generationSelect">
-                    <option value=1>1</option>
-                    <option value=2>2</option>
-                    <option value=3>3</option>
-                    <option value=4>4</option>
-                    <option value=5>5</option>
-                    <option value=6>6</option>
-                    <option value=7 selected="selected">7</option>
-                </select>
+                <label>Generation</label>
+                <form id="generationOption">
+                    <input type="radio" value=1 name="generationOption" /> Generation 1 <br>
+                    <input type="radio" value=2 name="generationOption" /> Generation 2 <br>
+                    <input type="radio" value=3 name="generationOption" /> Generation 3 <br>
+                    <input type="radio" value=4 name="generationOption" /> Generation 4 <br>
+                    <input type="radio" value=5 name="generationOption" /> Generation 5 <br>
+                    <input type="radio" value=6 name="generationOption" /> Generation 6 <br>
+                    <input type="radio" value=7 name="generationOption" / checked> Generation 7
+                </form>
             </div>
-            <div class="four wide column">
-                <select id="formSelect">
-                    <option value="redundant">No Redundant</option>
-                    <option value="legendary">No Legendary</option>
-                    <option value="form">No Forms</option>
-                    <option value="all" selected="selected">All</option>
-                </select>
+
+            <div class="two wide column">
+                <label>Exclude</label>
+                <form id="excludeOption">
+                    <input type="radio" value="DEFAULT" name="excludeOption" checked  /> None <br>
+                    <input type="radio" value="NO-FORM" name="excludeOption" /> Form <br>
+                    <input type="radio" value="NO-MEGA" name="excludeOption" /> Mega 
+                </form>
             </div>
-            <div class="four wide column">
-                <input type="checkbox" name="your-group" value="All"> All</input>
+
+            
+
+            <div class="two wide column">
+                <form class="typeOption">
+                <input type="checkbox" name="typeSelect" value="1" /> <img src="lib/assets/types/normal.gif" /><br>
+                <input type="checkbox" name="typeSelect" value="2" /> <img src="lib/assets/types/fighting.gif" /><br>
+                <input type="checkbox" name="typeSelect" value="3" /> <img src="lib/assets/types/flying.gif" /><br>
+                <input type="checkbox" name="typeSelect" value="4" /> <img src="lib/assets/types/poison.gif" /><br>
+                <input type="checkbox" name="typeSelect" value="5" /> <img src="lib/assets/types/ground.gif" /><br>
+                <input type="checkbox" name="typeSelect" value="6" /> <img src="lib/assets/types/rock.gif" /><br>
+                </form>
             </div>
+            <div class="two wide column">
+                <form class="typeOption">
+                <input type="checkbox" name="typeSelect" value="7" /> <img src="lib/assets/types/bug.gif" /><br>
+                <input type="checkbox" name="typeSelect" value="8" /> <img src="lib/assets/types/ghost.gif" /><br>
+                <input type="checkbox" name="typeSelect" value="9" /> <img src="lib/assets/types/steel.gif" /><br>
+                <input type="checkbox" name="typeSelect" value="10" /> <img src="lib/assets/types/fire.gif" /><br>
+                <input type="checkbox" name="typeSelect" value="11" /> <img src="lib/assets/types/water.gif" /><br>
+                <input type="checkbox" name="typeSelect" value="12" /> <img src="lib/assets/types/grass.gif" /><br>
+                </form>
+            </div>
+            <div class="two wide column">
+                <form class="typeOption">
+                <input type="checkbox" name="typeSelect" value="13" /> <img src="lib/assets/types/electric.gif" /><br>
+                <input type="checkbox" name="typeSelect" value="14" /> <img src="lib/assets/types/psychic.gif" /><br>
+                <input type="checkbox" name="typeSelect" value="15" /> <img src="lib/assets/types/ice.gif" /><br>
+                <input type="checkbox" name="typeSelect" value="16" /> <img src="lib/assets/types/dragon.gif" /><br>
+                <input type="checkbox" name="typeSelect" value="17" /> <img src="lib/assets/types/dark.gif" /><br>
+                <input type="checkbox" name="typeSelect" value="18" /> <img src="lib/assets/types/fairy.gif" /><br>    
+                </form>
+            </div>
+
         </div>
 
         <h2 class="ui dividing header">
@@ -64,5 +97,5 @@
 
 </body>
 <script type="text/javascript" src="lib/d3/d3.v4.min.js" charset="utf-8"></script>
-<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/v2.js"></script>
 </html>

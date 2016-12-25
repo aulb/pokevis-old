@@ -31,6 +31,7 @@
 
         <div class="ui grid">
             <div class="four wide column">
+                <label>Generation</label>
                 <form id="generationOption">
                     <input type="radio" value=1 name="generationOption" /> Generation 1 <br>
                     <input type="radio" value=2 name="generationOption" /> Generation 2 <br>
@@ -42,6 +43,7 @@
                 </form>
             </div>
             <div class="four wide column">
+                <label>Exclude</label>
                 <form id="excludeOption">
                     <input type="radio" value="DEFAULT" name="excludeOption" checked  /> None <br>
                     <input type="radio" value="NO-FORM" name="excludeOption" /> Form <br>
@@ -50,6 +52,7 @@
                 </form>
             </div>
             <div class="four wide column">
+                <label>Mode</label>
                 <form id="modeOption">
                     <input type="radio" value="LAX" name="modeOption" checked /> Lax <br>
                     <input type="radio" value="STRICT" name="modeOption" /> Strict 
@@ -61,11 +64,17 @@
             References
         </h2>
         Filler
+
+
+        <h2 class="ui dividing header">
+            Missing Types?
+        </h2>
+        ???
+
     </div>
 
     </div>
 
 </body>
-<script type="text/javascript" src="lib/d3/d3.v4.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="js/v1.js"></script>
 </html>
