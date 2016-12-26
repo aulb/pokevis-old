@@ -329,6 +329,11 @@ def generate_count_json():
 		opt_container = {}
 		for option in options:
 			pri_container = []
+			# Check, need to save space
+			if "MEGA" in option and generation < 5:
+				continue
+			elif "FORM" in option and generation < 2:
+				continue
 			for i in primaries:
 				sec_container = []
 				for j in secondaries:

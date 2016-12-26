@@ -36,6 +36,20 @@ Solution: redundant data rather than doing an extra join on species id
 |disabling radio button in javascript|http://stackoverflow.com/questions/13245672/how-to-disable-the-radio-button-using-javascript-not-using-any-js-framework|
 |str2int js|http://stackoverflow.com/questions/1133770/how-do-i-convert-a-string-into-an-integer-in-javascript|
 |dynamically checked radio button js|http://stackoverflow.com/questions/9919117/how-to-change-the-selected-radio-button-dynamically-with-jquery|
+|sum in a list js|http://stackoverflow.com/questions/1230233/how-to-find-the-sum-of-an-array-of-numbers|
+|list of objects js|http://stackoverflow.com/questions/5868850/creating-list-of-objects-in-javascript|
+|for loop js|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration|
+|javascript find|https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/find|
+|javascript string comparison|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Comparison_Operators|
+|js findIndex|http://stackoverflow.com/questions/7346827/javascript-find-array-index-with-value|
+
+## d3js
+|Problem|Link|
+|---|---|
+|d3 tutorial|http://zeroviscosity.com/category/d3-js-step-by-step|
+|d3 pie|https://github.com/d3/d3-shape/blob/master/README.md#pie|
+|*scaleordinal* d3 custom color scale|http://stackoverflow.com/questions/21208031/how-to-customize-the-color-scale-in-a-d3-line-chart|
+|d3 nested donut|http://plnkr.co/edit/2p0zmp?p=preview|
 
 ## SQL
 |Problem|Link|
