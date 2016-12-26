@@ -74,7 +74,7 @@ function tipColor(rgbObj1, rgbObj2) {
 
 
 function getPokePath(i, j, gen, option, mode) {
-	return DATA[mode][gen - 1][option][i - 1][j - 1];
+	return DATA[mode][gen][option][i - 1][j - 1];
 }
 
 function getTypePath(i) {

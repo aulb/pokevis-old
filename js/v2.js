@@ -75,79 +75,178 @@ function add(a, b) {
 	return a + b;
 }
 
+function getCheckedRadio(radios) {
+	for (var i = 0, length = radios.length; i < length; i++) {
+	    if (radios[i].checked) {
+	        // do whatever you want with the checked radio
+	        return radios[i];
 
-var dataset = getPrimaryTypeCount(6, 'DEFAULT');
+	        // only one radio can be logically checked, don't check the rest
+	        break;
+	    }
+	}
+	return null;
+};
+
+function getCheckedBox(boxes) {
+	var retlist = [];
+	for (var i = 0, length = boxes.length; i < length; i++) {
+		if (boxes[i].checked) {
+			retlist.push(boxes[i]);
+		}
+	}
+	return retlist || null;
+};
+
+function checkAll(boxes) {
+	for (var i = 0, length = boxes.length; i < length; i++) {
+		boxes[i].checked = true;
+	}
+};
+
+function getCheckedBoxesValue(boxes) {
+	var retlist = [];
+	for (var i = 0, length = boxes.length; i < length; i++) {
+		if (boxes[i].checked) {
+			retlist.push(boxes[i].value);
+		}
+	}
+	return retlist;
+};
 
 
+var generationForm = document.getElementById('generationOption');
+var generationOption = document.getElementsByName('generationOption');
+var excludeForm = document.getElementById('excludeOption');
+var excludeOption = document.getElementsByName('excludeOption');
+var typeForm = document.getElementsByClassName('typeSelect');
+var typeBox = document.getElementsByClassName('typeSelections');
+var generation = Number(getCheckedRadio(generationOption).value);
+var exclude = getCheckedRadio(excludeOption).value;
+var typeSelections = getCheckedBoxesValue(typeBox).map(Number);
 
-var svgHeight = 400;
-var svgWidth = 500;
-var width = 400;
-var height = 400;
-var radius = Math.min(width, height) / 2;
+function disableOptions(gen, radios) {
+	for (var i = 0, length = radios.length; i < length; i++) {
+    	// Checked default
+    	if (gen < 6 && radios[i].value == 'DEFAULT') {
+			radios[i].checked = true;	
+    	}
 
-var donutWidth = 100;
+    	// Check per generation, and disable everything
+    	if (gen < 3) {
+    		// Disable radio buttons with values "FORM" or "MEGA"
+    		if (radios[i].value == 'NO-FORM' || radios[i].value == 'NO-MEGA') {
+    			radios[i].disabled = true;
+    		}
+    	} else if (gen > 2 && gen < 6) {
+    		if (radios[i].value == 'NO-MEGA') {
+    			radios[i].disabled = true;
+    		} else {
+    			radios[i].disabled = false;
+    		}
+    	} else {
+    		radios[i].disabled = false;
+    	}
 
-var legendRectSize = 18;
-var legendSpacing = 4;
+	}
+}
 
-// Define our own colors for Pokemon
-var color = d3.scaleOrdinal(d3.schemeCategory20b);
-var color = d3.scaleOrdinal()
-			  .domain(TYPES)
-			  .range(COLORS);
+// generationForm.addEventListener('change', function() {
+// 	// cannot remove child if its not there
+// 	uniqueTableDiv.removeChild(document.getElementById('uniqueTable'));
+// 	generation = Number(getCheckedRadio(generationOption).value);
+// 	disableOptions(generation, excludeOption);
+// 	exclude = getCheckedRadio(excludeOption).value;
+// 	createPieChart(generation, exclude);
+// });
 
-var svg = d3.select('#pokeChart')
-			.append('svg')
-			.attr('width', svgWidth)
-			.attr('height', svgHeight)
-			.append('g')
-			.attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')');
+// typeForm.addEventListener('change', function() {
+// 	uniqueTableDiv.removeChild(document.getElementById('uniqueTable'));
+// 	mode = getCheckedRadio(modeOption).value;
+// 	createTable(generation, exclude, mode);
+// });
+ 
+// excludeForm.addEventListener('change', function() {
+// 	uniqueTableDiv.removeChild(document.getElementById('uniqueTable'));
+// 	exclude = getCheckedRadio(excludeOption).value;
+// 	createTable(generation, exclude, mode);
+// });
 
-var arc = d3.arc()
-			.innerRadius(radius - donutWidth)
-			.outerRadius(radius);
 
-var pie = d3.pie()
-			.value(function(d) { return d.count; })
-			.sort(null); 
+var dataset = getPrimaryTypeCount(generation, exclude);
+createPieChart(dataset);
 
-// disable sorting of the entries
-// sorting mess with animation
-var path = svg.selectAll('path')
-			  .data(pie(dataset))
-			  .enter()
-			  .append('path')
-			  .attr('d', arc)
-			  .attr('fill', function(d, i) {
-			  		return color(d.data.label);
-			  });
-// .selectAll(el).data(data).enter().append(el)
-// what does that mean???
+function createPieChart(dataset) {
+	var svgHeight = 400;
+	var svgWidth = 500;
+	var width = 400;
+	var height = 400;
+	var radius = Math.min(width, height) / 2;
 
-// 3
-var legend = svg.selectAll('.legend')
-				.data(color.domain())
-				.enter()
+	var donutWidth = 60;
+
+	var legendRectSize = 18;
+	var legendSpacing = 4;
+
+	// Define our own colors for Pokemon
+	var color = d3.scaleOrdinal(d3.schemeCategory20b);
+	var color = d3.scaleOrdinal()
+				  .domain(TYPES)
+				  .range(COLORS);
+
+	var svg = d3.select('#pokeChart')
+				.append('svg')
+				.attr('id', 'pokePie')
+				.attr('width', svgWidth)
+				.attr('height', svgHeight)
 				.append('g')
-				.attr('class', 'legend')
-				.attr('transform', function(d, i) {
-					var height = legendRectSize + legendSpacing;
-					var offset = height * color.domain().length / 2;
-					var horz = 12 * legendRectSize; // relative to the center
-					var verz = i * height - offset;
-					return 'translate(' + horz + ',' + verz + ')';
-				});
-// i is the index of the data
+				.attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')');
 
-legend.append('rect')
-	  .attr('width', legendRectSize)
-	  .attr('height', legendRectSize)
-	  .style('fill', color)
-	  .style('stroke', color);
+	var arc = d3.arc()
+				.innerRadius(radius - donutWidth)
+				.outerRadius(radius);
 
-legend.append('text')
-	  .attr('x', legendRectSize + legendSpacing)
-	  .attr('y', legendRectSize - legendSpacing)
-	  .text(function(d) { return d; });
+	var pie = d3.pie()
+				.value(function(d) { return d.count; })
+				.sort(null); 
+
+	// disable sorting of the entries
+	// sorting mess with animation
+	var path = svg.selectAll('path')
+				  .data(pie(dataset))
+				  .enter()
+				  .append('path')
+				  .attr('d', arc)
+				  .attr('fill', function(d, i) {
+				  		return color(d.data.label);
+				  });
+	// .selectAll(el).data(data).enter().append(el)
+	// what does that mean???
+
+	// 3
+	var legend = svg.selectAll('.legend')
+					.data(color.domain())
+					.enter()
+					.append('g')
+					.attr('class', 'legend')
+					.attr('transform', function(d, i) {
+						var height = legendRectSize + legendSpacing;
+						var offset = height * color.domain().length / 2;
+						var horz = 12 * legendRectSize; // relative to the center
+						var verz = i * height - offset;
+						return 'translate(' + horz + ',' + verz + ')';
+					});
+	// i is the index of the data
+
+	legend.append('rect')
+		  .attr('width', legendRectSize)
+		  .attr('height', legendRectSize)
+		  .style('fill', color)
+		  .style('stroke', color);
+
+	legend.append('text')
+		  .attr('x', legendRectSize + legendSpacing)
+		  .attr('y', legendRectSize - legendSpacing)
+		  .text(function(d) { return d; });
+}
 

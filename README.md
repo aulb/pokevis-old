@@ -42,6 +42,13 @@ Solution: redundant data rather than doing an extra join on species id
 |javascript find|https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/find|
 |javascript string comparison|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Comparison_Operators|
 |js findIndex|http://stackoverflow.com/questions/7346827/javascript-find-array-index-with-value|
+|sharing function between two files|http://stackoverflow.com/questions/5271663/sharing-a-js-functions-between-code-in-2-files|
+|namespacing javascript|https://www.kenneth-truyers.net/2013/04/27/javascript-namespaces-and-modules/|
+|javascript best practices|https://github.com/stevekwan/best-practices/blob/master/javascript/best-practices.md|
+|maintainable javascript|http://dl.finebook.ir/book/4a/13598.pdf **book**|
+|checked boxes js|http://stackoverflow.com/questions/7791507/how-can-i-select-all-checkboxes-from-a-form-using-pure-javascript-without-js-fr|
+|javascript map|https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/map|
+|javascript parseInt|https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/parseInt|
 
 ## d3js
 |Problem|Link|
