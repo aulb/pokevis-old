@@ -41,13 +41,13 @@ function getDataset(generation, option) {
 	return DATA[generation][option];
 }
 
-function getPrimaryTypeCount(generation, option) {
+function getPrimaryTypeCount(generation, option, typeSelections) {
 	var current = DATA[generation][option];
 	var retobj = [];
 
-	for (var i = 0; i < current.length; i++) {
+	for (var i = 0, length = typeSelections.length; i < length; i++) {
 		var temp = {};
-		temp['label'] = TYPES[i];
+		temp['label'] = TYPES[typeSelections[i]];
 		temp['count'] = current[i].reduce(add, 0);
 		retobj.push(temp);
 	};
@@ -124,21 +124,22 @@ var typeBox = document.getElementsByClassName('typeSelections');
 var generation = Number(getCheckedRadio(generationOption).value);
 var exclude = getCheckedRadio(excludeOption).value;
 var typeSelections = getCheckedBoxesValue(typeBox).map(Number);
+var pokePieDiv = document.getElementById('pokeChart');
 
 function disableOptions(gen, radios) {
 	for (var i = 0, length = radios.length; i < length; i++) {
     	// Checked default
-    	if (gen < 6 && radios[i].value == 'DEFAULT') {
+    	if (gen < 5 && radios[i].value == 'DEFAULT') {
 			radios[i].checked = true;	
     	}
 
     	// Check per generation, and disable everything
-    	if (gen < 3) {
+    	if (gen < 2) {
     		// Disable radio buttons with values "FORM" or "MEGA"
     		if (radios[i].value == 'NO-FORM' || radios[i].value == 'NO-MEGA') {
     			radios[i].disabled = true;
     		}
-    	} else if (gen > 2 && gen < 6) {
+    	} else if (gen > 1 && gen < 5) {
     		if (radios[i].value == 'NO-MEGA') {
     			radios[i].disabled = true;
     		} else {
@@ -151,64 +152,95 @@ function disableOptions(gen, radios) {
 	}
 }
 
-// generationForm.addEventListener('change', function() {
-// 	// cannot remove child if its not there
-// 	uniqueTableDiv.removeChild(document.getElementById('uniqueTable'));
-// 	generation = Number(getCheckedRadio(generationOption).value);
-// 	disableOptions(generation, excludeOption);
-// 	exclude = getCheckedRadio(excludeOption).value;
-// 	createPieChart(generation, exclude);
-// });
+generationForm.addEventListener('change', function() {
+	// cannot remove child if its not there
+	pokePieDiv.removeChild(document.getElementById('pokePie'));
+	generation = Number(getCheckedRadio(generationOption).value);
+	disableOptions(generation, excludeOption);
+	exclude = getCheckedRadio(excludeOption).value;
+	dataset = getPrimaryTypeCount(generation, exclude, typeSelections);
+	createPieChart(dataset);
+});
 
-// typeForm.addEventListener('change', function() {
-// 	uniqueTableDiv.removeChild(document.getElementById('uniqueTable'));
-// 	mode = getCheckedRadio(modeOption).value;
-// 	createTable(generation, exclude, mode);
-// });
+for (var i = 0, length = typeForm.length; i < length; i++) {
+	typeForm[i].addEventListener('change', function() {
+		pokePieDiv.removeChild(document.getElementById('pokePie'));
+		typeSelections = getCheckedBoxesValue(typeBox).map(Number);
+		dataset = getPrimaryTypeCount(generation, exclude, typeSelections);
+		createPieChart(dataset);
+	});	
+}
+
  
-// excludeForm.addEventListener('change', function() {
-// 	uniqueTableDiv.removeChild(document.getElementById('uniqueTable'));
-// 	exclude = getCheckedRadio(excludeOption).value;
-// 	createTable(generation, exclude, mode);
-// });
+excludeForm.addEventListener('change', function() {
+	pokePieDiv.removeChild(document.getElementById('pokePie'));
+	exclude = getCheckedRadio(excludeOption).value;
+	dataset = getPrimaryTypeCount(generation, exclude, typeSelections);
+	createPieChart(dataset);
+});
 
 
-var dataset = getPrimaryTypeCount(generation, exclude);
+var dataset = getPrimaryTypeCount(generation, exclude, typeSelections);
 createPieChart(dataset);
 
 function createPieChart(dataset) {
-	var svgHeight = 400;
-	var svgWidth = 500;
+	// Define the height and width of SVG container
+	var svgHeight = 405;
+	var svgWidth = 505;
+
+	// Define the width and height of the main donut
 	var width = 400;
 	var height = 400;
 	var radius = Math.min(width, height) / 2;
 
-	var donutWidth = 60;
+	// The size of the main donut
+	// Max logical size would be radius, anything more would be funky
+	var donutWidth = 65;
 
+	// Padding between the pizza arcs
+	var padding = 0.01;
+
+	// Define some variable for the legends
 	var legendRectSize = 18;
 	var legendSpacing = 4;
 
 	// Define our own colors for Pokemon
-	var color = d3.scaleOrdinal(d3.schemeCategory20b);
 	var color = d3.scaleOrdinal()
 				  .domain(TYPES)
 				  .range(COLORS);
 
+	// Draw SVG
 	var svg = d3.select('#pokeChart')
 				.append('svg')
 				.attr('id', 'pokePie')
 				.attr('width', svgWidth)
 				.attr('height', svgHeight)
-				.append('g')
-				.attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')');
+				.append('g') 
+				// Lazy hack, add 2 pixels to count for stroke width
+				.attr('transform', 'translate(' + (width / 2 + 2) + ',' + (height / 2 + 2) + ')');
 
 	var arc = d3.arc()
-				.innerRadius(radius - donutWidth)
+				.innerRadius(radius - donutWidth) // 0
 				.outerRadius(radius);
 
 	var pie = d3.pie()
+				.padAngle(padding)
 				.value(function(d) { return d.count; })
 				.sort(null); 
+
+	// Add tooltip to every pie slices
+	var tooltip = d3.select('#pokeChart')
+					.append('div')
+					.attr('class', 'tooltip');
+
+	tooltip.append('div')
+		   .attr('class', 'label');
+
+	tooltip.append('div')
+		   .attr('class', 'count');
+
+	tooltip.append('div')
+		   .attr('class', 'percent');
 
 	// disable sorting of the entries
 	// sorting mess with animation
@@ -217,11 +249,45 @@ function createPieChart(dataset) {
 				  .enter()
 				  .append('path')
 				  .attr('d', arc)
+				  .attr('stroke', function(d, i) {
+				  	if (d.data.count > 0) {
+						return 'rgb(69,69,69)';				  		
+				  	} else {
+				  		return null;
+				  	}
+				  })
 				  .attr('fill', function(d, i) {
 				  		return color(d.data.label);
 				  });
 	// .selectAll(el).data(data).enter().append(el)
 	// what does that mean???
+
+	// Mouse event handlers. "Come after the definition
+	// inside the callback."
+
+	path.on('mouseover', function(d) {
+		//
+		var total = d3.sum(dataset.map(function(d) {
+			return d.count;
+		}));
+
+		var percent = Math.round(1000 * d.data.count / total) / 10;
+		tooltip.select('.label').html(d.data.label);
+		tooltip.select('.count').html(d.data.count);
+		tooltip.select('.percent').html(percent + '%');
+		tooltip.style('display', 'block'); //??
+		console.log(percent)
+	});
+
+	path.on('mouseout', function(d) {
+		//
+		tooltip.style('display', 'none');
+	});
+
+	path.on('mousemove', function(d) {
+		tooltip.style('top', (d3.event.layerY + 10) + 'px')
+			   .style('left', (d3.event.layerX + 10) + 'px')
+	});
 
 	// 3
 	var legend = svg.selectAll('.legend')
@@ -238,15 +304,18 @@ function createPieChart(dataset) {
 					});
 	// i is the index of the data
 
+	// Draw the rectangles with
 	legend.append('rect')
 		  .attr('width', legendRectSize)
 		  .attr('height', legendRectSize)
 		  .style('fill', color)
-		  .style('stroke', color);
+		  .style('stroke', 'rgb(69,69,69)');
 
 	legend.append('text')
 		  .attr('x', legendRectSize + legendSpacing)
 		  .attr('y', legendRectSize - legendSpacing)
-		  .text(function(d) { return d; });
+		  .text(function(d) { 
+		  	return d; 
+		  });
 }
 

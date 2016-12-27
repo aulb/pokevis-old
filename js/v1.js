@@ -82,9 +82,6 @@ function getTypePath(i) {
 }
 
 function createTable(gen, option, mode) {
-	var i;
-	var j;
-
 	// We are not appending to body
 	// var body = document.getElementsByTagName('body')[0];
 
@@ -93,10 +90,10 @@ function createTable(gen, option, mode) {
 	var tblBody = document.createElement('tbody');
 
 	// cells creation
-	for (i = 0; i < 19; i++) {
+	for (var i = 0; i < 19; i++) {
 		var row = document.createElement('tr');
 
-		for (j = 0; j < 19; j++) {
+		for (var j = 0; j < 19; j++) {
 			var cell = document.createElement('td');
 			cell.style.height = '38px';
 			cell.style.width = '38px';
@@ -155,17 +152,17 @@ function getCheckedRadio(radios) {
 function disableOptions(gen, radios) {
 	for (var i = 0, length = radios.length; i < length; i++) {
     	// Checked default
-    	if (gen < 6 && radios[i].value == 'DEFAULT') {
+    	if (gen < 5 && radios[i].value == 'DEFAULT') {
 			radios[i].checked = true;	
     	}
 
     	// Check per generation, and disable everything
-    	if (gen < 3) {
+    	if (gen < 2) {
     		// Disable radio buttons with values "FORM" or "MEGA"
     		if (radios[i].value == 'NO-FORM' || radios[i].value == 'NO-MEGA') {
     			radios[i].disabled = true;
     		}
-    	} else if (gen > 2 && gen < 6) {
+    	} else if (gen > 1 && gen < 5) {
     		if (radios[i].value == 'NO-MEGA') {
     			radios[i].disabled = true;
     		} else {

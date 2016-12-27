@@ -21,11 +21,11 @@ td img {
 }
 
 #pokeChart {
-  height: 360px;
+  height: 405px;
 	display: block;
   margin: 0 auto;
   position: relative;
-  width: 500px;
+  width: 505px;
 }
 
 .legend {
@@ -33,5 +33,20 @@ td img {
 }
 
 rect {
-  stroke-width: 2;
+  stroke-width: 1;
+}
+
+.tooltip {
+  background: #eee;
+  box-shadow: 0 0 5px #999999;
+  color: #333;
+  display: none;
+  font-size: 12px;
+  left: 200px;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  top: 150px;
+  width: 100px;
+  z-index: 10;
 }

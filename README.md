@@ -18,6 +18,7 @@ Solution: redundant data rather than doing an extra join on species id
 |---|---|
 |radio button html|http://stackoverflow.com/questions/4684382/radio-groups-with-clickable-label|
 |radio button one selection only|http://stackoverflow.com/questions/5419459/how-to-set-that-only-one-radio-button-can-be-checked|
+|rect svg style|https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Fills_and_Strokes|
 
 ##  Python
 |Problem|Link|
@@ -57,6 +58,9 @@ Solution: redundant data rather than doing an extra join on species id
 |d3 pie|https://github.com/d3/d3-shape/blob/master/README.md#pie|
 |*scaleordinal* d3 custom color scale|http://stackoverflow.com/questions/21208031/how-to-customize-the-color-scale-in-a-d3-line-chart|
 |d3 nested donut|http://plnkr.co/edit/2p0zmp?p=preview|
+|multi level d3 pie|https://pankajkumar005.wordpress.com/2015/08/14/multilevel-pie-chart-using-d3/|
+|d3 padding|https://bl.ocks.org/mbostock/f098d146315be4d1db52|
+|custom color arc d3|http://stackoverflow.com/questions/13323526/how-to-add-custom-colors-to-specific-arcs-in-donut-charts-in-d3|
 
 ## SQL
 |Problem|Link|
