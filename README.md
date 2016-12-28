@@ -50,6 +50,8 @@ Solution: redundant data rather than doing an extra join on species id
 |checked boxes js|http://stackoverflow.com/questions/7791507/how-can-i-select-all-checkboxes-from-a-form-using-pure-javascript-without-js-fr|
 |javascript map|https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/map|
 |javascript parseInt|https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/parseInt|
+|javascript design patterns|https://addyosmani.com/resources/essentialjsdesignpatterns/book/|
+|javascript event handlers organizing|http://stackoverflow.com/questions/247209/commonly-accepted-best-practices-around-code-organization-in-javascript|
 
 ## d3js
 |Problem|Link|
@@ -61,6 +63,13 @@ Solution: redundant data rather than doing an extra join on species id
 |multi level d3 pie|https://pankajkumar005.wordpress.com/2015/08/14/multilevel-pie-chart-using-d3/|
 |d3 padding|https://bl.ocks.org/mbostock/f098d146315be4d1db52|
 |custom color arc d3|http://stackoverflow.com/questions/13323526/how-to-add-custom-colors-to-specific-arcs-in-donut-charts-in-d3|
+|d3 remove elements|http://stackoverflow.com/questions/16260285/d3-removing-elements|
+|d3 add picture instead of text|http://stackoverflow.com/questions/26428341/how-can-i-add-different-images-instead-of-text-inside-d3-js-piechart-slices|
+
+## requirejs
+|Problem|Link|
+|---|---|
+|requirejs introduction|https://www.sitepoint.com/understanding-requirejs-for-effective-javascript-module-loading/|
 
 ## SQL
 |Problem|Link|

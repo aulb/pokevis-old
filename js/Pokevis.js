@@ -1,8 +1,4 @@
-// ?
-
-var Pokevis = Pokevis || {};
-
-Pokevis.f = function() {
+var Pokevis = (function() {
 	var colors = ['#BBBDAF', '#A35449', '#75A4F9', 
 			  '#AD5CA2', '#F0CA42', '#CDBD72', 
 			  '#C3D221', '#7673DA', '#C3C1D7', 
@@ -33,4 +29,5 @@ Pokevis.f = function() {
 	};
 
 	return retobj;
-};
+
+})(); // Immediately invoked functions

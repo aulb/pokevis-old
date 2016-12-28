@@ -149,31 +149,48 @@ function getCheckedRadio(radios) {
 	return null;
 }
 
-function disableOptions(gen, radios) {
+function disableOptions(generation, radios) {
+	var checkDefault = false;
+	var defaultRadio = null;
+	// Disable first
 	for (var i = 0, length = radios.length; i < length; i++) {
-    	// Checked default
-    	if (gen < 5 && radios[i].value == 'DEFAULT') {
-			radios[i].checked = true;	
-    	}
-
+		if (radios[i].value == 'DEFAULT') {
+			defaultRadio = radios[i];
+		}
     	// Check per generation, and disable everything
-    	if (gen < 2) {
-    		// Disable radio buttons with values "FORM" or "MEGA"
-    		if (radios[i].value == 'NO-FORM' || radios[i].value == 'NO-MEGA') {
+    	if (generation < 2) {
+    		// Disable radio buttons with forms/megas
+    		if (radios[i].value == 'NO-FORM' || 
+    			radios[i].value == 'NO-MEGA') {
     			radios[i].disabled = true;
+
+    			// Check if its checked
+    			if (radios[i].checked) {
+    				checkDefault = true;
+    			}
     		}
-    	} else if (gen > 1 && gen < 5) {
+    	} else if (generation > 1 && generation < 5) {
+    		// Don't forget to enable option for non megas
     		if (radios[i].value == 'NO-MEGA') {
     			radios[i].disabled = true;
+
+    			// Check if its checked
+    			if (radios[i].checked) {
+    				checkDefault = true;
+    			}
     		} else {
     			radios[i].disabled = false;
     		}
     	} else {
+    		// Enable all options for generation six onwards
     		radios[i].disabled = false;
     	}
-
 	}
-}
+
+	if (checkDefault) {
+		defaultRadio.checked = true;
+	}
+};
 
 
 var generationForm = document.getElementById('generationOption');
