@@ -53,6 +53,7 @@ Solution: redundant data rather than doing an extra join on species id
 |javascript design patterns|https://addyosmani.com/resources/essentialjsdesignpatterns/book/|
 |javascript event handlers organizing|http://stackoverflow.com/questions/247209/commonly-accepted-best-practices-around-code-organization-in-javascript|
 
+
 ## d3js
 |Problem|Link|
 |---|---|
@@ -70,7 +71,7 @@ Solution: redundant data rather than doing an extra join on species id
 |Problem|Link|
 |---|---|
 |requirejs introduction|https://www.sitepoint.com/understanding-requirejs-for-effective-javascript-module-loading/|
-|requirejs tutorial for beginners|https://coderwall.com/p/u8xgvq/requirejs-basic-introduction|
+|require define amd js|https://addyosmani.com/writing-modular-js/|
 
 ## SQL
 |Problem|Link|
