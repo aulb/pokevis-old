@@ -70,6 +70,7 @@ Solution: redundant data rather than doing an extra join on species id
 |Problem|Link|
 |---|---|
 |requirejs introduction|https://www.sitepoint.com/understanding-requirejs-for-effective-javascript-module-loading/|
+|requirejs tutorial for beginners|https://coderwall.com/p/u8xgvq/requirejs-basic-introduction|
 
 ## SQL
 |Problem|Link|
