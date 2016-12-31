@@ -19,6 +19,8 @@ Solution: redundant data rather than doing an extra join on species id
 |radio button html|http://stackoverflow.com/questions/4684382/radio-groups-with-clickable-label|
 |radio button one selection only|http://stackoverflow.com/questions/5419459/how-to-set-that-only-one-radio-button-can-be-checked|
 |rect svg style|https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Fills_and_Strokes|
+|html tables optimization|https://msdn.microsoft.com/en-us/library/ms532998(v=vs.85).aspx|
+|html remove all element from node|http://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript|
 
 ##  Python
 |Problem|Link|
@@ -91,6 +93,22 @@ Solution: redundant data rather than doing an extra join on species id
 |peewee intersect|http://peewee.readthedocs.io/en/latest/peewee/api.html#SelectQuery.__and__|
 |peewee count aggregate|http://docs.peewee-orm.com/en/latest/peewee/querying.html#counting-records|
 
+## jekyll
+|Problem|Link|
+|---|---|
+|jekyll tutorial|https://css-tricks.com/building-a-jekyll-site-part-1-of-3/|
+|jekyll tutorial 2|https://scotch.io/tutorials/getting-started-with-jekyll-plus-a-free-bootstrap-3-starter-theme|
 
+## sass
+|Problem|Link|
+|---|---|
+|sass basics||
+
+## liquid
+|Problem|Link|
+|---|---|
+|liquid assign variable to content||
+|cheatsheet|http://cheat.markdunkley.com|
+|liquid concant|http://stackoverflow.com/questions/23688939/contatenate-append-a-string-to-another-one-in-jekyll-liquid|
 
 ## UI: Semantic UI
