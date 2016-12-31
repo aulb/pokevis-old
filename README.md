@@ -98,11 +98,17 @@ Solution: redundant data rather than doing an extra join on species id
 |---|---|
 |jekyll tutorial|https://css-tricks.com/building-a-jekyll-site-part-1-of-3/|
 |jekyll tutorial 2|https://scotch.io/tutorials/getting-started-with-jekyll-plus-a-free-bootstrap-3-starter-theme|
+|jekyll front matter list|http://assemble.io/docs/YAML-front-matter.html|
 
 ## sass
 |Problem|Link|
 |---|---|
 |sass basics||
+
+## CSS
+|Problem|Link|
+|---|---|
+|visibility hidden vs display none|http://stackoverflow.com/questions/133051/what-is-the-difference-between-visibilityhidden-and-displaynone|
 
 ## liquid
 |Problem|Link|
@@ -110,5 +116,8 @@ Solution: redundant data rather than doing an extra join on species id
 |liquid assign variable to content||
 |cheatsheet|http://cheat.markdunkley.com|
 |liquid concant|http://stackoverflow.com/questions/23688939/contatenate-append-a-string-to-another-one-in-jekyll-liquid|
+|liquid for loop|https://help.shopify.com/themes/liquid/objects/for-loops|
+|include dynamic include|https://github.com/jekyll/jekyll/pull/1495|
+
 
 ## UI: Semantic UI
