@@ -1,3 +1,4 @@
+LOL for commit message since?
 # ポケモンデータ可視化♪
 ポケモンデータは７世までみえてる
 
